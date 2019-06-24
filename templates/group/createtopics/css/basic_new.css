@@ -1,0 +1,187 @@
+@charset "utf-8";
+/*!
+ * @名称：base.css
+ * @功能：1、重设浏览器默认样式
+ *        2、设置通用原子类
+ */
+/* 防止用户自定义背景颜色对网页的影响，添加让用户可以自定义字体 */
+html {
+    background:#fff;
+    color:#555;
+	-webkit-text-size-adjust: 100%;
+    -ms-text-size-adjust: 100%;
+}
+body {
+    word-break: break-all;
+    word-wrap: break-word;
+}
+/* 内外边距通常让各个浏览器样式的表现位置不同 */
+body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,code,form,fieldset,legend,input,textarea,p,blockquote,th,td,hr,button,article,aside,details,figcaption,figure,footer,header,hgroup,menu,nav,section {
+	margin:0;
+	padding: 0;
+}
+/* 要注意表单元素并不继承父级 font 的问题 */
+body,button,input,select,textarea {
+    font:12px "Microsoft Yahei","微软雅黑","Helvetica Neue", Helvetica, Arial, sans-serif,"Simsun", "Segoe UI";
+}
+input,select,textarea {
+    font-size:100%;
+}
+
+input,select,textarea,button{vertical-align:middle;outline:none}
+textarea{resize:none}
+/* IE bug fixed: th 不继承 text-align */
+th{text-align:inherit;}
+input[type="checkbox"]{width:13px;height:15px;}
+/* 去掉 table cell 的边距并让其边重合 */
+table {
+    border-collapse:collapse;
+    border-spacing:0;
+}
+/* ie bug：th 不继承 text-align */
+th {
+    text-align:inherit;
+}
+/* 去除默认边框 */
+fieldset,img {
+    border:none;
+}
+/* ie6 7 8(q) bug 显示为行内表现 */
+iframe {
+    display:block;
+}
+/* 去掉 firefox 下此元素的边框 */
+abbr,acronym {
+    border:none;
+    font-variant:normal;
+}
+/* 一致的 del 样式 */
+del {
+    text-decoration:line-through;
+}
+address,caption,cite,code,dfn,em,th,var {
+    font-style:normal;
+    font-weight:500;
+}
+/* 去掉列表前的标识，li 会继承 */
+ol,ul {
+    list-style:none;
+}
+/* 对齐是排版最重要的因素，别让什么都居中 */
+caption,th {
+    text-align:left;
+}
+/* 来自yahoo，让标题都自定义，适应多个系统应用 */
+h1,h2,h3,h4,h5,h6 {
+    font-size:100%;
+    font-weight:500;
+}
+q:before,q:after {
+    content:'';
+}
+/* 统一上标和下标 */
+sub,sup {
+    font-size:75%;
+    line-height:0;
+    position:relative;
+    vertical-align:baseline;
+}
+sup {
+    top:-0.5em;
+}
+sub {
+    bottom:-0.25em;
+}
+/* 让链接在 hover 状态下显示下划
+a:hover {
+    text-decoration:underline;
+}线 */
+/* 默认不显示下划线，保持页面简洁 */
+ins,a {
+    text-decoration:none;
+}
+a {
+	outline:none;
+	color:#333;
+
+}
+a:hover {
+	color:#00BED4;
+}
+/* 去除 ie6 & ie7 焦点点状线 */
+a:focus,*:focus {
+    outline:none;
+}
+/* 清除浮动 */
+.clearfix:before,.clearfix:after {
+    content:"";
+    display:table;
+}
+.clearfix:after {
+    clear:both;
+    overflow:hidden;
+}
+.clearfix {
+    zoom:1; /* for ie6 & ie7 */
+}
+.clear {
+    clear:both;
+    display:block;
+    font-size:0;
+    height:0;
+    line-height:0;
+    overflow:hidden;
+}
+/* 设置显示和隐藏，通常用来与 js 配合 */
+.hide {
+    display:none;
+}
+.block {
+    display:block;
+}
+/* 设置浮动，减少浮动带来的 bug */
+.fl,.fr {
+    display:inline;
+}
+.fl {
+    float:left;
+}
+.fr {
+    float:right;
+}
+.lazyloading {
+    width: 100%;
+    height: 100%;
+}
+[class^="icon-"], [class*="icon-"] {
+	background-image:url(../icon/icon.png);
+	display:inline-block;
+	vertical-align:middle;
+}
+[class^="wicon-"], [class*="wicon-"] {
+	background-image:url(../icon/wechat-icon.png);
+}
+.star span {
+	background-image:url(../icon/icon.png);
+	display: inline-block;
+    vertical-align: middle;
+}
+
+.star_ul li{width:11px; height:10px; font-size:1px; overflow:hidden; background-image:url(../image/ico.png); background-repeat:no-repeat; float:left;margin: 10px 2px 0 0;}
+.grade-back-set{width:11px; height:10px; font-size:1px; overflow:hidden; display:inline-block; background-image:url(../image/ico.png); background-repeat:no-repeat;background-position:-105px -4px; width:15px; height:20px}
+.grade-back-default{width:11px; height:10px; font-size:1px; overflow:hidden; display:inline-block; background-image:url(../image/ico.png); background-repeat:no-repeat; background-position:-83px -3px; width:15px; height:20px}
+
+
+/*成功，错误提示页面*/
+.Prompt-inner p{padding:5px 0 10px;color:#555;font-weight:300;font-size:30px;font-family:Microsoft YaHei;}
+.Prompt-inner .box-ver{padding:5px 0 10px;color:#555;font-weight:300;font-size:30px;font-family:Microsoft YaHei;}
+.Prompt{z-index:999999;margin:200px auto;padding:15px;width:400px;border:1px solid #ccc;background:#fff;-moz-box-shadow:0 2px 5px 1px rgba(0,0,0,.1);box-shadow:0 2px 5px 1px rgba(0,0,0,.1);color:#1b9103;text-align:left;text-align:center;webkit-box-shadow:0 2px 5px 1px rgba(0,0,0,.1);-khtml-box-shadow:0 2px 5px 1px rgba(0,0,0,.1);-ms-box-shadow:0 2px 5px 1px rgba(0,0,0,.1);}
+.Prompt_top{width:100%;height:15px;background-position:0 0;}
+.Prompt_btm{overflow:hidden;width:100%;height:6px;background-position:0 -27px;}
+.Prompt_con dl{overflow:hidden;margin:0 30px;}
+.Prompt_con dt{padding:15px 0;border-bottom:1px solid #EEE;font-weight:700;font-size:18px;}
+.Prompt_con dd{float:left;display:block;padding:15px;}
+.Prompt_con dd h2{font-size:14px;line-height:30px;}
+.Prompt_ok{width:68px;height:68px;background-position:-72px -39px;}
+.Prompt_x{width:68px;height:68px;background-position:0 -39px;}
+.Prompt .Prompt-inner .box-ver .ico-error-big{margin:0 10px 0 0;width:38px;height:38px;background-position:-80px -48px;background-position:-80px -48px;vertical-align:middle;}

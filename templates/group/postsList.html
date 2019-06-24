@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+    <title>小组内容</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0">
+    <meta property="qc:admins" content="1403267155765154541656375">
+    <meta property="wb:webmaster" content="fdcd9430a88b1552">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="Access-Control-Allow-Origin" content="*">
+</head>
+
+
+<div  id="content">
+    <div class="top">
+        <div class="header_new2">
+            <div class="top1">
+                <div class="top1img">
+                    <a href="/html/group/group.html"
+                       title="首页" style="display: block;float: left;"><img src="../../images/logo.png" width="150" data-bd-imgshare-binded="1"></a>
+                </div>
+
+                <div class="nav">
+                    <ul>
+                        <li>
+                            <a href="group.html"
+                               target="_self">社区</a></li>
+                        <li>
+                            <a href="../question/questionsList.html"
+                               target="_self">问答</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="top3">
+                <!--消息提示-->
+                <ul class="news-msg" style="display:none;">
+
+                    <a class="shanchu-ico" href="javascript:;" onclick="closeMsg(this)">×</a>
+
+
+                </ul>
+
+
+                <div class="nav1">
+                    <ul class="page_header_adiv">
+                    <li class="header_top_nav" v-if="notLogin ===true">
+                        <a href="#">{{user}}</a>
+                        <i class="icon-nav-arrow"></i>
+                    </li>
+                    <li class="fr" v-if="notLogin ===false" style="margin-top: 10px;font-size: 14px;color:#fff;"><a href="../../login.html">登录 </a> | <a href="../../register.html" style="cursor: pointer;"> 注册</a>
+                    </li>
+                    <dl class="login-after-position" v-show="notLogin === true">
+
+                        <dd class="login-after-bdbt"><a
+                                href="../personalCenter/changeMyInfo.html">我的设置</a>
+                        </dd>
+                        <dd class="login-after-bdbt"><a
+                                href="../personalCenter/myMsg.html">我的消息</a>
+                        </dd>
+                        <dd class="login-after-bdbt"><a href="javascript:;" onclick="logout()">退出</a></dd>
+                    </dl>
+
+                </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="foots">
+        <div class="communitybox">
+            <div class="wrap">
+                <div class="community-wrap">
+                    <div class="pic">
+                        <img :src="thisGroup.front_image" class="lazyloading">
+
+
+
+                    </div>
+                    <div class="info">
+                        <div class="tit">
+                            <h2>{{thisGroup.name}}</h2>
+                        </div>
+                        <div class="txt">{{thisGroup.desc}}</div>
+                        <div class="tit">
+                            <div class="fl"><img src="../../images/people.png" alt=""><i class="people"></i><span class="c2">{{thisGroup.member_nums}}</span>人
+                            </div>
+                            <div class="fl">|</div>
+                            <div class="fl"><img src="../../images/ring.png" alt=""
+                                                 ><span class="c1">{{thisGroup.post_nums}}</span>条
+                            </div>
+                        </div>
+                    </div>
+                    <div class="ebtn">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="content bgf7 pt20" >
+            <div class="wrap">
+                <div class="classmain">
+                    <div class="classmain-hd">
+                        <ul>
+                            <li id="all" :class="{on: all === true}" @click="getPosts('全部帖子')"><a
+                                    href="javascript:;">全部帖子</a>
+                            </li>
+                            <li :class="{on: all === false}"@click="getPosts('精华帖子')">
+                                <a href="javascript:;" >精华帖子</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="classmain-bd">
+                        <div class="classmain_con">
+                            <ul class="tiezi-list" id="posts_list">
+                                <li v-if="postsList.length === 0">
+                                    <h3>小组中暂时没有帖子</h3>
+                                </li>
+                                <li v-if="postsList.length" v-for="item in postsList">
+                                    <h3>
+                                        <a href="./thisPost.html?postId={{item.id}}">{{item.title}}</a>
+                                    </h3>
+                                    <div class="info">
+                                        <div class="fr"><span class="icon-pl"></span>{{item.comment_num}}</div>
+                                        <div class="name"><a href="./thisPost.html"><img src="../../images/middle.jpg" width="30" height="30" class="lazyloading">{{item.user.nick_name}}</a></div>
+
+                                    </div>
+                                </li>
+
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="classside">
+                    <div class="classsideitem">
+                        <h3 class="classsidetit">热门帖子</h3>
+                        <div class="classsidecon">
+                            <ul class="dotlist">
+                                <li v-if="hot.length === 0">
+                                    <h3>小组中暂时没有热门帖子</h3>
+                                </li>
+                                <li v-if="postsList.length" v-for="item in hot">
+                                    <a href="./thisPost.html?postId={{item.id}}">{{item.title}}</a>
+                                </li>
+                            </ul>
+                            <a class="fb_btn" href="createTopic1.html?groupId={{groupId}}">发布新帖</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <style>
+            html,body{
+                height: 100%;
+            }
+            #content{
+                min-height: 100%;
+                background-color: #f5f5f5;
+            }
+            .post-service {
+                position: fixed;
+                height: 60px;
+                bottom: 0;
+            }
+            .foots{
+                overflow: hidden;
+                padding-bottom: 100px;
+            }
+        </style>
+    </div>
+
+<div class="aaa"></div>
+</div>
+<div class="post-service yensen">
+    <div class="copyright-box">
+        Copyright 2017 seition All Rights Reserved | 蜀ICP 备 16004612号
+    </div>
+</div>
+
+<!--footer end-->
+<i id="webname" title="postList"></i>
+<script src="../../js/vue.min.js"></script>
+<script src="../../js/vuex.js"></script>
+<script src="../../js/vue-cookies.js"></script>
+<script src="../../js/common.js"></script>
+<script src="../../js/axios.js"></script>
+<script src="../../js/vue-validator.js"></script>
+<script src="../../js/dynamic2.js"></script>
+<script src="../../js/user.js"></script>
+<script src="../../js/postList.js"></script>
+</body>
+</html>

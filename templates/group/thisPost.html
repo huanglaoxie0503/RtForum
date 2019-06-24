@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>帖子列表</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0">
+    <meta property="qc:admins" content="1403267155765154541656375">
+    <meta property="wb:webmaster" content="fdcd9430a88b1552">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="Access-Control-Allow-Origin" content="*">
+
+    <link href="../../css/font-awesome.min.css" rel="stylesheet">
+
+<body>
+
+
+<div  id="content">
+    <div class="top">
+        <div class="header_new2">
+            <div class="top1">
+                <div class="top1img">
+                    <a href="group.html" style="display: block;float: left;"><img src="../../images/logo.png" width="150" data-bd-imgshare-binded="1"></a>
+                </div>
+
+                <div class="nav">
+                    <ul>
+                        <li>
+                            <a href="./group.html" target="_self">社区</a>
+                        </li>
+                        <li>
+                            <a href="../question/questionsList.html" target="_self">问答</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="top3">
+                <!--消息提示-->
+                <ul class="news-msg" style="display:none;">
+
+                    <a class="shanchu-ico" href="javascript:;" >×</a>
+
+
+                </ul>
+
+
+                <div class="nav1">
+                    <ul class="page_header_adiv">
+                        <li class="header_top_nav" v-show="notLogin ===true">
+                            <a href="#">{{username}}</a>
+                            <i class="icon-nav-arrow"></i>
+                        </li>
+                        <li class="fr" v-show="notLogin ===false" style="margin-top: 10px;font-size: 14px;color:#fff;"><a href="../../login.html">登录 </a> | <a href="../../register.html" style="cursor: pointer;"> 注册</a>
+                        </li>
+                        <dl class="login-after-position" v-show="notLogin === true">
+
+                            <dd class="login-after-bdbt"><a
+                                    href="../personalCenter/changeMyInfo.html">我的设置</a>
+                            </dd>
+                            <dd class="login-after-bdbt"><a
+                                    href="../personalCenter/myMsg.html">我的消息</a>
+                            </dd>
+                            <dd class="login-after-bdbt"><a href="javascript:;" onclick="logout()">退出</a></dd>
+                        </dl>
+
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <style type="text/css">
+        .content {
+            background: #fff;
+        }
+    </style>
+    <div class="content">
+        <div class="wrap">
+            <!--左边-->
+            <div class="class_left">
+                <div class="question-box">
+                    <h2>{{thisPost.title}}</h2>
+                    <dl>
+                        <dd><span class="icon-pl"></span>{{thisPost.comment_nums}}</dd>
+                        <dt>
+                            <a href="#"><img src="../../images/original_100_100.jpg" class="lazyloading">{{thisPost.user.nick_name}} </a><span> {{thisPost.add_time}}</span></dt>
+                    </dl>
+                    <div class="question-page">
+                        <p v-html="thisPost.content" style=" white-space: normal; font-size: 14px; font-family: 微软雅黑, 宋体;">
+                        </p>
+                    </div>
+                    <div class="item border"><textarea name="content" cols="" rows="" v-model="commentContent" placeholder="我来帮TA回答"></textarea></div>
+                    <div class="item t-right">
+                        <button class="btn-mc btn-mini btn-mc-green  js-ipt-submit" @click="addComment">提交评论
+                        </button>
+                    </div>
+                </div>
+                <div class="qa-comment clearfix ">
+                    <div class="qa-comment-wrap" v-if="thiscomment.length" v-for="item in thiscomment">
+                        <div class="qa-comment-author">
+                            <a title="da_ge_da" target="_blank" href="#">
+                                <img width="40" height="40" src="../../images/middle.jpg" >
+                                <span class="qa-comment-nick">{{item.user.nick_name}}</span>
+                            </a>
+                        </div>
+                        <div class="qa-comment-inner">
+                            <p class="qa-comment-c imgPreview">
+                                {{item.content}}</p>
+                            <div class="qa-comment-addon"><span class="qa-comment-time">{{item.add_time}}</span>
+                                <div class="qa-comment-addon-r"> <span class="qa-total-reply">
+                      <i class="qa-icon" style="background-position: -25px -107px;"></i>
+                      <span class="js-qa-tr-num" id="ptr21"style="display: none;">
+                        <a id="nbcomm21">{{item.comment_num}}</a>条评论
+                      </span>
+                        <span class="qa-tr-up " style="display: inline; color: rgb(51, 51, 51);" @click="showedComment($index,item.id)">{{item.showComment}}</span></span>
+                                    <span @click="addLike(item.id,$index)" class="js-qa-comment-support qa-comment-support  js-qacom-supported-user">
+
+                         <a href="javascript:;" :class="{liked: like === true}"> <i class="fa fa-thumbs-o-up"></i> {{item.like_nums}}</a>
+                            <style>
+                                .liked{
+                                    color: #00a2ca;
+                                }
+                            </style>
+                        <span>{{thiscomment.like}}</span>
+                        </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="qa-replies" v-if="item.showCom === true">
+                            <div class="qa-reply-c" id="comm21" >
+                                <div class="qa-reply-item" v-if="item.commToComm.length" v-for="(i,index) in item.commToComm" >
+                                    <a title="da_ge_da" target="_blank" href="#" class="qa-reply-item-author"><img width="40" height="40" src="../../images/middle.jpg"></a>
+                                    <div class="qa-reply-item-inner">
+                                        <p>
+                                            <a class="qa-reply-nick" target="_blank"
+                                               href="#"
+                                               id="uname1426">{{item.commToComm[i]['user']['nick_name']}}</a> 回复 :<a class="qa-reply-nick" target="_blank"
+                                                                                  href="#">{{item.user.nick_name}}</a>
+                                        </p>
+                                        <p class="q-reply-item-c" id="description1426"> {{item.commToComm[i]["content"]}} </p>
+                                        <div class="qa-reply-item-foot clearfix">
+                                            <span class="reply-item-index r">{{commToComm[i]["add_time"]}}</span>
+                                            <span class="qa-reply-item-reply js-reply-item-reply" @click="replyaa(item.commToComm[i]['user']['id'],item.commToComm[i]['user']['nick_name'])">
+                        <i class="fa fa-twitch"></i>回复
+                    </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="border answer-topic"><textarea name="content" cols="" v-model="content" rows=""
+                                                                           :placeholder="replyer"></textarea></div>
+                                <div class="item t-right">
+                                    <button class="btn-mc btn-mini btn-mc-green  js-ipt-submit"
+                                            @click="addReplys($index,item.id)">提交回复
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--右边-->
+        </div>
+    </div>
+    <!--footer-->
+    <style>
+        .question-page p{
+            color: #999999;
+        }
+    </style>
+
+    <div class="post-service yensen">
+
+        <div class="copyright-box">
+            Copyright 2017 seition All Rights Reserved | 蜀ICP 备 16004612号
+        </div>
+    </div>
+<!--footer end-->
+</div>
+<i id="webname" title="thisPost"></i>
+<script src="../../js/vue.min.js"></script>
+<script src="../../js/vuex.js"></script>
+<script src="../../js/vue-cookies.js"></script>
+<script src="../../js/common.js"></script>
+<script src="../../js/axios.js" ></script>
+<script src="../../js/topic.js"></script>
+<script src="../../js/user.js"></script>
+<script src="../../js/dynamic2.js"></script>
+
+</body>
+</html>

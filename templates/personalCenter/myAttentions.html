@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <title>关注</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0">
+    <meta property="qc:admins" content="1403267155765154541656375">
+    <meta property="wb:webmaster" content="fdcd9430a88b1552">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="Access-Control-Allow-Origin" content="*">
+
+
+
+
+<body>
+
+
+
+
+
+<div id="content">
+
+    <div class="top">
+        <div class="header_new2">
+            <div class="top1">
+                <div class="top1img">
+                    <a href="../group/group.html?_ijt=q3nqce0pepbjuv1rh2c72ebhea" title="Eduline在线教育系统" style="display: block;float: left;"><img src="../../images/logo.png" width="150" data-bd-imgshare-binded="1"></a>
+                </div>
+
+                <div class="nav">
+                    <ul>
+                        <li >
+                            <a href="../group/group.html" target="_self">社区</a>
+                        </li>                                              <li >
+                        <a href="../question/questionsList.html" target="_self">问答</a>
+                    </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="top3">
+                <!--消息提示-->
+                <div class="nav1">
+                    <ul class="page_header_adiv">
+                        <li class="header_top_nav" v-if="notLogin === true">
+                            <a href="#">{{user}}</a>
+                            <i class="icon-nav-arrow"></i>
+                        </li>
+                        <li class="fr" v-if="notLogin ===false" style="margin-top: 10px;font-size: 14px;color:#fff;"><a href="../../login.html">登录 </a> | <a href="../../register.html" style="cursor: pointer;"> 注册</a>
+                        </li>
+                        <dl class="login-after-position" v-show="notLogin === true">
+
+                            <dd class="login-after-bdbt"><a
+                                    href="../personalCenter/changeMyInfo.html">我的设置</a>
+                            </dd>
+                            <dd class="login-after-bdbt"><a
+                                    href="../personalCenter/myMsg.html">我的消息</a>
+                            </dd>
+                            <dd class="login-after-bdbt"><a href="javascript:;" onclick="logout()">退出</a></dd>
+                        </dl>
+
+                    </ul>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+        <style>
+            /*个人主页、首页*/
+            .centerbox{
+                height:200px;
+            }
+            .center_right_tit div a.on {
+                border-color: #00BED4;!important;
+                color: #00BED4;!important;
+                background-color: #fff;!important;
+            }
+            .center_right_tit div a {
+                height: 54px;!important;
+                padding: 0 25px;!important;
+                font-size: 16px;!important;
+                line-height: 54px;!important;
+                display: block;!important;
+                float: left;!important;
+            }
+            .center_right_tit div a:hover,.center_right_tit li a:hover {
+                border-color: #00BED4;!important;
+                color: #00BED4;!important;
+                background-color: #fff;!important;
+            }
+            .center_left li.on a {
+                background-color: #00BED4!important;!important;
+                color: white!important;!important;
+            }
+            .center-info h3 span img{
+                border: none;
+            }
+            .sr-bdimgshare-black .bdimgshare-bg,.bdimgshare-content{
+                display: none;
+            }
+            .center_left .top li{
+                border-top:none;
+                line-height: normal;
+            }
+            .center-info .name {
+                font-size: 20px;
+                line-height: 34px;
+            }
+            .content {
+                padding:0;
+                background-color: #f0f0f2;
+            }
+            .center-info{
+                text-align: left;
+                float: left;
+                margin-top: 38px;
+            }
+            .center-info img{
+                float: left;
+                margin-right: 20px;
+                width: 120px;
+                height: 120px;
+            }
+            .center-info-txt{
+                float: left;
+            }
+            .center-info h3 {
+                margin-top: 30px;
+            }
+            .center_right_tit div a{
+                height: 50px;
+                line-height:50px;
+                float: right;
+            }
+            .user-con-title a{
+                width: 65px;
+            }
+            .look-home .on a{
+                color:#00BED4;
+            }
+            .bdshare-button-style1-24 a, .bdshare-button-style1-24 .bds_more{
+                margin: 6px;
+            }
+            .user-imglist .act{
+                float: left;
+                width: 100%;
+            }
+            .bdshare-button-style1-24 a, .bdshare-button-style1-24 .bds_more{
+                margin: 6px;
+            }
+            /*我的回答字体*/
+            .detailmeg{
+                font-size: 14px;
+                float: right;
+                width: 766px;
+            }
+        </style>
+                <form id="user_img_forms" action="../question/questionsList.html" method="POST" enctype="multipart/form-data">
+            <div class="centerbox" style="background:url(../question/questionsList.htmldata/upload/2018/0706/14/5b3f10576810b.jpg) center center no-repeat;background-size: cover;">
+                    
+            <div class="wrap">
+                <!--<div class="place">个人中心<span>&gt;</span>
+                    <a href="../question/questionsList.htmluser/1446.html">我的主页</a>
+                                        </div>-->
+                <div class="center-info">
+                    <img src="../images/original_200_200.jpg" data-bd-imgshare-binded="1">
+                    <div class="userName">顺子哥</div>
+                    <style>
+                        .userName{
+                            font-size: 20px;
+                            letter-spacing: 5px;
+                            text-align: center;
+                            width: 100%;
+                        }
+                    </style>
+
+                </div>
+                <div class="_right-box-all">
+                    <div class="act">
+                        <div class="fr zhuang-left">
+                            <a class="fx" href="javascript:;">
+                                <i class="icon-fx"></i>
+                            </a>
+
+                        </div>
+                                         </div>
+                </div>
+            </div>
+    </div>
+    </form>
+    <style>
+        .wrap{
+            margin:0 auto;
+        }
+        .center_left dl{
+            padding-bottom: 0px;
+        }
+    </style>
+    <div class="content cbg">
+        <div class="study-navigation">
+            <div class="wrap">
+                <ul class="look-home">
+                    <li :class="{on:showindex}" @click="showGroup">小组</li>
+                    <li :class="{on:showindex == false}" @click="showQuestion">问答</li>
+                </ul>
+            </div>
+        </div>
+
+        <style>
+            .on{
+                color: #00a2ca;
+            }
+            .look-home>li{
+                cursor: pointer;
+            }
+        </style>
+        <div class="wrap" id="wrap">
+            <ul class="myGroup">
+                <!--我的小组-->
+                <li class="content cbg" v-if="showGroup">
+                    <div class="wrap">
+                        <!--中 -->
+                        <div class="center_right">
+                            <div class="center_right_tit">
+                                <h5>我的小组</h5>
+                            </div>
+                            <input type="hidden" id="clickstate" value="done">
+                            <div class="center_right_con">
+                                <div>创建的小组</div>
+                                <ul class="user-imglist">
+                                    <li class="myownGroup" v-if="owner.length" v-for="i in owner">
+                                        <a href="#" class="img"><img :src="'/media/' + i.front_image" class="lazyloading" data-bd-imgshare-binded="1"></a>
+                                        <div class="user-title">
+
+                                            <h3 style=""><b><a href="#" >{{i.name}}</a></b></h3>
+                                            <p >{{i.desc}}</p>
+                                            <span>
+                                        <strong style="line-height: 24px;font-size: 14px;">
+                                            <a href="#">编辑</a>
+                                        </strong>
+                                        <small><button>删除</button></small>
+                                    </span>
+                                        </div>
+                                    </li>
+                                </ul>
+                                <!-- 个人中心隐藏此分页，学习中心显示此分页 -->
+                                <div class="page">
+                                    <div class="pagebox">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="center_right_con">
+                                <div>创建的小组</div>
+                                <ul class="user-imglist">
+                                    <li class="myownGroup" v-if="join.length" v-for="i in join">
+                                        <a href="#" class="img"><img :src="'/media/' + i.front_image" class="lazyloading" data-bd-imgshare-binded="1"></a>
+                                        <div class="user-title">
+
+                                            <h3><a href="#" v-if="join.length">{{i.name}}</a></h3>
+                                            <p v-if="join.length">{{i.desc}}</p>
+
+                                        </div>
+                                    </li>
+                                </ul>
+
+                            </div>
+
+                        </div>
+
+                        <!--左-->
+
+
+                    </div>
+                </li>
+                <!--我的问答-->
+                <style type="text/css">
+                .center_right_con{
+                    padding-left: 10px;
+                }
+                .bot{
+                    width:290px;
+                    background-color: #fff;
+                }
+                .main-sidebar-title{
+                    padding: 0 20px;
+                    margin:0
+                }
+                .center_left li:first-child{
+                    border:0;
+                }
+                .center_left li{
+                    width:250px;
+                    margin-left:20px;
+                }
+                .center_left{
+                    margin-bottom:30px;
+                }
+            </style>
+                <li class="content cbg" v-if="showQuestions" >
+                    <div class="wrap">
+                        <!--中 -->
+                        <div class="center_right">
+                            <div class="center_right_tit">
+                                <h5>我的问答</h5>
+                            </div>
+                            <input type="hidden"value="done">
+
+                            <div class="center_right_con">
+
+                                <div class="myQuestions">
+                                    <h2 class="h2">我的问答</h2>
+                                    <ul class="user-imglist">
+                                        <div class="qa-replies" v-if="questionList.length" v-for="item in questionList">
+                                            <div class="qa-reply-c"><div class="qa-reply-item"> <a title="da_ge_da" target="_blank" href="../question/questionsList.html" class="qa-reply-item-author"><img width="40" height="40" src="../images/21.gif"></a>
+                                                <div class="qa-reply-item-inner">
+                                                    <p class="q-reply-item-c"> {{item.content}} </p>
+                                                    <div class="qa-reply-item-foot clearfix">
+                                                        <span class="reply-item-index r">{{item.add_time}}</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            </div>
+                                        </div>
+                                    </ul>
+                                </div>
+                                <div class="myReplys">
+                                    <h2 class="h2">我的回复</h2>
+                                    <ul class="user-imglist">
+                                        <div class="qa-replies" v-if="answersList.length" v-for="y in answersList">
+                                            <!--追加的子回复-->
+                                            <div class="qa-reply-c" ><div class="qa-reply-item"> <a title="da_ge_da" target="_blank" href="../question/questionsList.htmluser/1426.html" class="qa-reply-item-author"><img width="40" height="40" src="../images/21.gif"></a>
+                                                <div class="qa-reply-item-inner">
+                                                    <p class="q-reply-item-c" > {{y.content}} </p>
+                                                    <div class="qa-reply-item-foot clearfix">
+                                                        <span class="reply-item-index r">{{y.add_time}}</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            </div>
+                                            <!--追加的子回复-->
+                                        </div>
+
+                                    </ul>
+                                </div>
+
+                            </div>
+                        </div>
+                        <!--左-->
+                        <style type="text/css">
+                            .bot{
+                                width:290px;
+                                background-color: #fff;
+                            }
+                            .main-sidebar-title{
+                                padding: 0 20px;
+                                margin:0
+                            }
+                            .center_left li:first-child{
+                                border:0;
+                            }
+                            .center_left li{
+                                width:250px;
+                                margin-left:20px;
+                            }
+                            .center_left{
+                                margin-bottom:30px;
+                            }
+
+                        </style>
+
+                    </div>
+                </li>
+            </ul>
+
+    </div>
+</div>
+
+    <!--footer start-->
+    <div class="post-service yensen">
+
+        <div class="copyright-box">
+            Copyright 2017 seition All Rights Reserved  |  蜀ICP 备 16004612号        </div>
+    </div>
+</div>
+<i id="webname" title="myAttentions"></i>
+<script src="../../js/vue.min.js"></script>
+<script src="../../js/vuex.js"></script>
+<script src="../../js/vue-cookies.js"></script>
+<script src="../../js/common.js"></script>
+<script src="../../js/axios.js"></script>
+<script src="../../js/user.js"></script>
+<script src="../../js/dynamic2.js"></script>
+<script src="../../js/myAttentions.js"></script>
+ </body>
+</html>

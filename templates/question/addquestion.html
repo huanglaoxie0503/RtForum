@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>新建问答</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0">
+    <meta property="qc:admins" content="1403267155765154541656375">
+    <meta property="wb:webmaster" content="fdcd9430a88b1552">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="Access-Control-Allow-Origin" content="*">
+</head>
+<body id="content">
+<div class="top">
+    <div class="header_new2">
+        <div class="top1">
+            <div class="top1img">
+                <a href="../group/group.html"
+                   style="display: block;float: left;"><img src="../../images/logo.png" width="150"></a>
+            </div>
+
+            <div class="nav">
+                <ul>
+                    <li><a href="../group/group.html" target="_self">社区</a>
+                    </li>
+                    <li>
+                        <a href="./questionsList.html" target="_self">问答</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+            <div class="nav1" style="float: right">
+                <ul class="page_header_adiv">
+                    <li class="header_top_nav" v-if="notLogin ===false">
+                        <a href="#">{{user}}</a>
+                        <i class="icon-nav-arrow"></i>
+                    </li>
+                    <li class="fr" v-if="notLogin ===true" style="margin-top: 10px;font-size: 14px;color:#fff;"><a href="../../login.html">登录 </a> | <a href="../../register.html" style="cursor: pointer;"> 注册</a>
+                    </li>
+                    <dl class="login-after-position" v-if="notLogin === false">
+
+                        <dd class="login-after-bdbt"><a
+                                href="../personalCenter/changeMyInfo.html">我的设置</a>
+                        </dd>
+                        <dd class="login-after-bdbt"><a
+                                href="../personalCenter/myMsg.html">我的消息</a>
+                        </dd>
+                        <dd class="login-after-bdbt"><a href="javascript:;" onclick="logout()">退出</a></dd>
+                    </dl>
+
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<style>
+    .quesdetail textarea {
+        padding: 5px;
+        border: 1px solid #eee;
+        width: 700px;
+        height: 100px;
+    }
+
+    .image-list > li {
+        margin: 20px 0 20px 0px;
+        overflow: hidden;
+    }
+
+    .image-list > li > .pic {
+        display: block;
+        height: auto;
+        margin: 0px;
+        padding: 0px;
+        line-height: 0;
+        float: left;
+    }
+
+    .image-list > li > .name {
+        float: left;
+        margin: 30px 0 0 16px
+    }
+
+    .image-list {
+        overflow: hidden;
+        margin-left: 47px;
+    }
+</style>
+<!--main-->
+<div class="wenda position-rt"style="min-height: 600px;">
+    <!--左边-->
+    <div class="sucesspage" style="">
+        <validator name="myForm" >
+        <form enctype="multipart/form-data" id="myform" action="javascript:;" novalidate>
+            <h2>发问题</h2>
+            <div class="inputques">
+                <div class="quesdetail mbot"><span class="ques-label">分类：</span>
+                    <a :class="{onactive: show === 0}" href="javascript:;" @click="getCategory(0)">技术问答</a><a href="javascript:;" :class="{onactive: show ===1}" @click="getCategory(1)">技术分享</a><a href="javascript:;" :class="{onactive: show ===2}" @click="getCategory(2)">活动建议</a></div>
+                <input type="text" style="display: none" id="category" name="category"/>
+                <div class="quesdetail mbottom"><span class="ques-label fl">题目：</span>
+                    <textarea rows="" cols=""detect-change="off" v-model="title"
+                              detect-blur='on' initial='off' v-validate:desc="['required']"  id="title" name="title" placeholder="问题题目"></textarea>
+                </div><span class="err" v-if="$myForm.desc.required">请填写问题题目</span>
+                <div class="quesdetail mbottom"><span class="ques-label fl">内容：</span>
+                    <textarea rows="" cols="" detect-change="off" v-model="content"
+                              detect-blur='on' initial='off' v-validate:notice="['required']"  name="content" placeholder="简单描述下您的问题吧"></textarea>
+
+                </div><span class="err" v-if="$myForm.notice.required">请填写问题描述</span>
+                <style>
+                    .err{
+                        color: red;
+                        margin-left: 50px;
+                    }
+                    .quesdetail{
+                        margin-top: 10px;
+                    }
+                </style>
+
+                <div class="quesdetail mbottom"><span class="ques-label fl">图片：</span>
+                    <div id="width_150">
+                        <input id="image" @change="changeImage($event)" style="border:0" type="file" detect-change="off" v-model="image"
+                               detect-blur='on' initial='off' v-validate:img="['required']"  name="image" inputname="wd_attr" value="上传封面" urlquery="attach_type=feed_image&amp;upload_type=image&amp;thumb=1" limit="0" event-node="uploadinput">
+                    </div>
+                    <span class="err" v-if="$myForm.img.required">请选择图片</span>
+                </div>
+
+
+                <div class="publishbtn-worap publishbtn"><input type="submit" value="发布" @click="addquestion"
+                                                                class="publishbtn-worap publishbtn" style="border:0"/>
+                    <p class="global-errortip js-global-error"></p>
+                </div>
+            </div>
+        </form>
+        </validator>
+    </div>
+    <!--右边-->
+    <div class="fr bbs-slide">
+        <div class="bbs-sendques">
+            <h1> 您想发问题 还是发问题，还是想发问题？ </h1>
+            <dl>
+                <dt>上面没有写错，是您看错啦。</dt>
+                <dd>1、您是想来吐槽的吧，没事，随便发吧。有人会跟你一起吐槽的。</dd>
+                <dd>2、您是来解决问题？请先搜索是否已经有同类问题吧。这样您就省心少打字。</dd>
+                <dd>3、没找到是么？就在发问题时精确描述你的问题，不要写与问题无关的内容哟；</dd>
+                <dd>4、讨论更衷于解达您想要的答案。能引起思考和讨论的知识性问题；</dd>
+            </dl>
+        </div>
+    </div>
+
+</div>
+
+
+<!--footer-->
+<!--footer start-->
+<div class="post-service yensen">
+
+    <div class="copyright-box">
+        Copyright 2017 seition All Rights Reserved | 蜀ICP 备 16004612号
+    </div>
+</div>
+<!--footer end-->
+<i id="webname" title="addquestion"></i>
+<script src="../../js/vue.min.js"></script>
+<script src="../../js/vuex.js"></script>
+<script src="../../js/vue-cookies.js"></script>
+<script src="../../js/vue-validator.js"></script>
+<script src="../../js/common.js"></script>
+<script src="../../js/axios.js"></script>
+<script src="../../js/dynamic2.js"></script>
+<script src="../../js/addquestion.js"></script>
+<script src="../../js/user.js"></script>
+</body>
+</html>

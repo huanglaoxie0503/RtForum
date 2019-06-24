@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <title>用户信息</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="Access-Control-Allow-Origin" content="*">
+  <style>
+		@font-face {font-family: 'iconfontNEW';src: url('../question/questionsList.html?_ijt=q3nqce0pepbjuv1rh2c72ebheaaddons/theme/stv1/_static/icon/iconfontNEW.woff?v={$site.sys_version}');}
+		.iconfontNEW{font-family:"iconfontNEW";}
+	</style>
+
+
+</head>
+<body>
+
+<div id="content">
+
+    <div class="top">
+        <div class="header_new2">
+            <div class="top1">
+                <div class="top1img">
+                    <a href="../group/group.html" style="display: block;float: left;"><img src="../../images/logo.png" width="150" data-bd-imgshare-binded="1"></a>
+                </div>
+
+                <div class="nav">
+                    <ul>
+                        <li >
+                            <a href="../group/group.html" target="_self">社区</a>
+                        </li>                                              <li >
+                        <a href="../question/questionsList.html" target="_self">问答</a>
+                    </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="top3">
+                <!--消息提示-->
+                <div class="nav1">
+                    <ul class="page_header_adiv">
+                        <li class="header_top_nav" v-if="notLogin === true">
+                            <a href="#">{{user}}</a>
+                            <i class="icon-nav-arrow"></i>
+                        </li>
+                        <li class="fr" v-if="notLogin ===false" style="margin-top: 10px;font-size: 14px;color:#fff;"><a href="../../login.html">登录 </a> | <a href="../../register.html" style="cursor: pointer;"> 注册</a>
+                        </li>
+                        <dl class="login-after-position" v-show="notLogin === true">
+
+                            <dd class="login-after-bdbt"><a
+                                    href="../personalCenter/changeMyInfo.html">我的设置</a>
+                            </dd>
+                            <dd class="login-after-bdbt"><a
+                                    href="../personalCenter/myMsg.html">我的消息</a>
+                            </dd>
+                            <dd class="login-after-bdbt"><a href="javascript:;" onclick="logout()">退出</a></dd>
+                        </dl>
+
+                    </ul>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+
+    <!---选择地址弹出框-->
+
+    <style>
+        .center_right_tit div .on{color:#00BED4}
+        .box-ver{float:right;margin-right:70px}
+        .user-con-title a{float:left;width:auto}
+        .center_left{float:left;overflow:hidden;border-radius:4px}
+        .center_right{float:right}
+        .txt_bar_a{padding:0 20px 0 0}
+        .new_style{width:392px}
+    </style>
+    <div class="content">
+        <div class="wrap">
+            <style>
+        .center_left dl{
+            padding-bottom: 0px;
+        }
+    </style>
+    <div class="center_left">
+        <dl style="border-bottom: solid 1px #e7e6e5;">
+            <dt><a href="javascript:;" onclick="magbtn(this)">我的设置</a></dt>
+            <dd>
+                <ul>
+                    <li class="on"><a href="#">账户设置</a></li>
+                    </ul>
+            </dd>
+        </dl>
+    </div>
+
+
+
+            <ul class=" center_right">
+                <div class="center_right_tit">
+                    <div class="user-con-title">
+                        <a :class="{on: showInfo}" @click="showinfo">基本信息</a>
+                        <a :class="{on: showImg}" @click="showimg">头像设置</a>
+                        <a :class="{on: showPsd}" @click="showpsd">修改密码</a>
+                    </div>
+                </div>
+              <style>
+                  .missContent{
+                      display: none;
+                  }
+              </style>
+            </ul>
+            <ul class="myContent">
+                <li class="center_right " v-if="showInfo" >
+                    <div class="center_right_con Manage_all" id="basic_sets" style="display:block">
+                        <form class="infobox">
+                            <dl>
+                                <dt><span>*</span>登录账号：</dt>
+                                <dd>18227618966                            </dd>
+                            </dl>
+                            <dl>
+                                <dt><span>*</span>性别：</dt>
+                                <dd>
+                                    <label><input type="radio" name="sex" value="1" v-model="userInfo.gender">男</label>
+                                    <label><input type="radio" name="sex" value="2"v-model="userInfo.gender">女</label>
+                                </dd>
+                            </dl>
+                            <dl>
+                                <dt><span>*</span>昵称：</dt>
+                                <dd>
+                                    <input name="uname" class="inp01" type="text" placeholder="请输入昵称" v-model="userInfo.nick_name">
+                                </dd>
+                                </dl>
+                            <dl>
+                                <dt><span>*</span>地区：</dt>
+                                <dd style="width: 480px;">
+                                    <style>
+                                        select{margin-right: 10px !important;height: 38px;width: 121px;border-radius: 4px;border: solid 1px #b6c7d6;line-height: 34px;padding: 4px;}
+                                    </style>
+                                    <div>
+                                        <select v-model="prov" >
+                                            <option v-for="option in arr" :value="option.name">
+                                                {{ option.name }}
+                                            </option>
+                                        </select>
+                                        <select v-model="city">
+                                            <option v-for="option in cityArr" :value="option.name">
+                                                {{ option.name }}
+                                            </option>
+                                        </select>
+                                        <select v-model="district">
+                                            <option v-for="option in districtArr" :value="option.name">
+                                                {{ option.name }}
+                                            </option>
+                                        </select>
+                                    </div>
+
+
+                                    <input id="city_ids_hidden" name="city_ids_hidden" type="hidden" value="0">
+
+                                </dd>
+                                </dl>
+                                <dl>
+                                    <dt>个人简介：</dt>
+                                    <dd>
+                                        <textarea class="tex01 textlength" maxlength="200" name="intro" v-model="userInfo.desc"></textarea>
+                                    </dd>
+                                    <div class="form-hint"><strong id="strconunt"></strong></div>
+                                </dl>
+                                <dl>
+                                    <dd><a href="javascript:;" class="btn" type="submit" @click="changeInfo" style="height: 40px;line-height: 40px;">保 存</a>
+                                    </dd>
+                                </dl>
+                            </form>
+                        </div>
+                </li>
+                <li class="center_right " v-if="showImg">
+                    <!--头像设置-->
+                    <div class="center_right_con Manage_all">
+                        <div style="width: 540px;margin: 20px auto;">
+                            <div id="selectUploadType" class="chanage lh30 " style=" line-height:24px; font-size:12px; padding:10px 0; color:#999999;">
+                                建议选择清晰的照片作为头像<br>
+                                支持JPG,JPGE,PNG格式，大小限制1024M以内
+                            </div>
+
+                            <form id="noflashUpload" model-node="avatar_upload_form" enctype="multipart/form-data" action="javascript:;" method="post">
+                                <dl class="form-avatar">
+                                    <dd class="ft16 lh30 pb40">
+                                        <input event-node="select_file" type="file" v-model="front_img" @change="changeImage($event)" name="Filedata" class="">
+                                        <span event-node="loading" style="display:none;"><img src="">加载中...</span>
+                                    </dd>
+                                    <dd>
+                                        <ul class="ph_img_box clearfix">
+                                            <li class="ph_img m_70_40_0_40 fl"><img class="toux_img2 toux_img_reset" :src="image"></li>
+                                        </ul>
+                                        <div class="mod-avatar" style="display:none">
+                                            <div class="cut-1"><img  src="" width="150"><p>(150px*150px)</p></div>
+                                        </div>
+                                    </dd>
+                                </dl>
+                                <button class="Save sel_w btn_big_r" @click="postImg">保存</button>
+                                <style>
+                                    .btn_big_r{
+                                        border: none;
+                                    }
+                                </style>
+                                <!--<button class="Save sel_w btn_big_r" href="" style="background:#CCC">取消</button>-->
+                            </form>
+
+                        </div>
+                    </div>
+                </li>
+                <li class="center_right " v-if="showPsd">
+                <!-- 修改密码 -->
+                <div class="center_right_con Manage_all">
+                    <validator name="myForm">
+                        <style>
+                            .infobox dd span{
+                                color: red;
+                            }
+                            html,body{
+                                height: 100%;
+                                background-color: #f0f0f2;
+                            }
+                        </style>
+                        <form class="infobox" id="myForm" novalidate>
+                        <dl>
+                            <dt><span>*</span>旧密码：</dt>
+                            <dd>
+                                <input class="inp01" v-model="oldpsw" detect-change="off"
+                                       detect-blur='on' initial='off' autocomplete="off" v-validate:comment="{minlength:6,maxlength:20}" type="password" rel="请输入原密码" >
+                                <span v-show="$myForm.comment.minlength">请输入6-20位的密码</span>
+                                <span v-show="$myForm.comment.maxlength">请输入6-20位的密码</span>
+                            </dd>
+                        </dl>
+                        <dl>
+                            <dt><span>*</span>新密码：</dt>
+                            <dd>
+                                <input class="inp01" v-model="newpsw" type="password" detect-change="off"
+                                       detect-blur='on' initial='off' autocomplete="off" v-validate:newcomment="{minlength:6,maxlength:20}" rel="请输入新密码" >
+                                <span v-if="$myForm.newcomment.minlength">请输入6-20位的密码</span>
+                                <span v-if="$myForm.newcomment.maxlength">请输入6-20位的密码</span>
+                            </dd>
+                        </dl>
+                        <dl>
+                            <dt><span>*</span>确认密码：</dt>
+                            <dd>
+                                <input class="inp01" type="password" detect-change="off"
+                                       detect-blur='on' initial='off' autocomplete="off" v-validate:confirmcomment="{minlength:6,maxlength:20}" v-model="confirmpsw" rel="请输入确认密码" >
+                                <span v-if="$myForm.confirmcomment.minlength">请输入6-20位的密码</span>
+                                <span v-if="$myForm.confirmcomment.maxlength">请输入6-20位的密码</span>
+                            </dd>
+                        </dl>
+                        <dl>
+                            <dd>
+                                <button class="btn" id="edit-password" type="button" @click="changepsw" style="height: 40px;line-height: 40px;">保存</button>
+                            </dd>
+                        </dl>
+                    </form>
+                    </validator>
+                </div>
+
+            </li>
+          </ul>
+        </div>
+    </div>
+    <style>
+        .post-service{
+            position: fixed;
+            bottom: 0;
+        }
+        body{
+            background-color: #f0f0f2;
+        }
+    </style>
+        <!--footer start-->
+    <div class="post-service yensen">
+
+            <div class="copyright-box">
+                Copyright 2017 seition All Rights Reserved  |  蜀ICP 备 16004612号        </div>
+        </div>
+</div>
+    <!--footer end-->
+<i id="webname" title="changeMyInfo"></i>
+
+<script src="../../js/vue.min.js"></script>
+<script src="../../js/vuex.js"></script>
+<script src="../../js/vue-cookies.js"></script>
+<script src="../../js/vue-validator.js"></script>
+<script src="../../js/common.js"></script>
+<script src="../../js/axios.js" ></script>
+<script src="../../js/dynamic2.js"></script>
+<script src="../../js/user.js"></script>
+<script src="../../js/changeMyInfo.js"></script>
+</body></html>

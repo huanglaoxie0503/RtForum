@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<!-- saved from url=(0045)http://localhost:63342/untitled1/product0606/content/personalCenter/information/information.html -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <title>消息</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="Access-Control-Allow-Origin" content="*">
+	<style>
+		@font-face {font-family: 'iconfontNEW';src: url('../question/questionsList.html?_ijt=q3nqce0pepbjuv1rh2c72ebheaaddons/theme/stv1/_static/icon/iconfontNEW.woff?v={$site.sys_version}');}
+		.iconfontNEW{font-family:"iconfontNEW";}
+	</style>
+
+
+
+</head>
+<body>
+
+
+
+<div id="content">
+
+<div class="top">
+    <div class="header_new2">
+        <div class="top1">
+            <div class="top1img">
+                <a href="../group/group.html" style="display: block;float: left;"><img src="../../images/logo.png" width="150" data-bd-imgshare-binded="1"></a>
+            </div>
+
+            <div class="nav">
+                <ul>
+                    <li >
+                        <a href="../group/group.html" target="_self">社区</a>
+                    </li>                                              <li >
+                    <a href="../question/questionsList.html" target="_self">问答</a>
+                </li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="top3">
+            <!--消息提示-->
+            <div class="nav1">
+                <ul class="page_header_adiv">
+                    <li class="header_top_nav" v-if="notLogin === false">
+                        <a href="#">{{user}}</a>
+                        <i class="icon-nav-arrow"></i>
+                    </li>
+                    <li class="fr" v-if="notLogin === true" style="margin-top: 10px;font-size: 14px;color:#fff;"><a href="../../login.html">登录 </a> | <a href="../../register.html" style="cursor: pointer;"> 注册</a>
+                    </li>
+                    <dl class="login-after-position" v-show="notLogin === false">
+
+                        <dd class="login-after-bdbt"><a
+                                href="../personalCenter/changeMyInfo.html">我的设置</a>
+                        </dd>
+                        <dd class="login-after-bdbt"><a
+                                href="../personalCenter/myMsg.html">我的消息</a>
+                        </dd>
+                        <dd class="login-after-bdbt"><a href="javascript:;" onclick="logout()">退出</a></dd>
+                    </dl>
+
+                </ul>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+    <style>
+        .nav1{
+            float: right;
+        }
+    </style>
+<div class="content">
+    <div class="wrap">
+        <!--左-->
+        <div class="jgpage_left" style="padding-bottom: 10px">
+    <dl class="fenlei">
+        <dt>消息管理</dt>
+
+        <dd :class="{active:activeindex == 1}" @click="showCommentList">
+        <a >收到的评论</a>
+        </dd>
+        <dd :class="{active:activeindex == 2}" @click="showApplyList">
+        <a>点赞|回复</a>
+        </dd>
+        <dd :class="{active:activeindex == 3}" @click="showChackList">
+            <a>审核信息</a>
+        </dd>
+    </dl>
+</div>
+        <style>
+            .hide{
+                display: none;
+            }
+        </style>
+
+        <ul class="myContent">
+            <div class="jgpage_right fl">
+            </div>
+            <!--我的评论-->
+            <li class="jgpage_right " v-if="showcomments">
+                <div class="jgpage_right_con">
+                    <ul class="user-wenda">
+                        <li class="li" v-if="commentList.length" v-for="item in commentList">
+                            <div class="discusslist"> <a target="_blank" title="182276" class="otherHead" href="javascript:;"><img width="40" height="40" :src="item.sender.head_url"></a>
+                                <div class="detailmeg">
+                                    <div class="report">
+                                        <div class="mynote"><a title="182276" href="javascript:;">{{item.sender.nick_name}}</a></div>
+                                        <p class="mynote"><a target="_blank" href="javascript:;">{{item.message}}</a> </p>
+                                    </div>
+                                    <!--原文-->
+                                    <p class="user-pltxt"><a href="javascript:;" class="f9"><span class="f3">{{item.message_type}}你的评论：</span>{{item.parent_content}}</a></p>
+
+                                    <div class="fbtime">时间：<span>{{item.add_time}}</span>
+                                  </div>
+                                </div>
+                            </div>
+                        </li>
+                     </ul>
+                </div>
+            </li>
+            <!--我的点赞-->
+            <li class="jgpage_right" v-if="showapply">
+                <div class="jgpage_right_con">
+                    <ul class="user-wenda">
+                        <li class="li" :key="apply" v-if="applysList.length" v-for="(apply,i) in applysList">
+                            <div class="discusslist"> <a target="_blank" title="182276" class="otherHead" href="javascript:;"><img width="40" height="40" :src="i.sender.head_url"></a>
+                                <div class="detailmeg">
+                                    <div class="report">
+                                        <div class="mynote"><a title="182276" href="javascript:;">{{i.sender.nick_name}}</a></div>
+                                        <p class="mynote"><a target="_blank" href="javascript:;">{{i.message}}</a> </p>
+                                    </div>
+                                    <!--原文-->
+                                    <p class="user-pltxt"><a href="javascript:;" class="f9"><span class="f3">{{i.message_type}}我的评论：</span>{{i.parent_content}}</a></p>
+
+                                    <div class="fbtime">时间：<span>{{i.add_time}}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </li>
+            <!--我的审核信息-->
+            <li class="jgpage_right" v-if="showchack">
+                <div class="jgpage_right_con">
+                    <ul class="user-wenda">
+                        <li class="li" v-if="chackList.length" v-for="item in chackList">
+                            <div class="discusslist">
+                                <div class="detailmeg">
+                                    <div class="report">
+                                        <div class="mynote"><a title="182276" href="javascript:;">{{item.user.nick_name}}</a></div>
+                                        <p class="mynote"><a target="_blank" href="javascript:;">请求加入您的小组： {{item.group}}</a> </p>
+                                    </div>
+                                    <!--原文-->
+                                    <p class="user-pltxt"><a href="javascript:;" class="f9"><span class="f3">请求原因：</span>{{item.apply_reason}}</a> </p>
+
+                                    <div class="fbtime">时间：<span>{{item.add_time}}</span>
+                                        <span class="fr">
+                        <a href="javascript:;" @click="allow(item.id)" class=" font12 f228">通过</a> <a href="javascript:;" @click="refuse(item.id)" class=" font12 f228">拒绝</a></span></div>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </li>
+        </ul>
+        <style>
+            .message_list li div p a{
+                color: #00a2ca;
+            }
+            .message_list button{
+                cursor: pointer;
+            }
+            .fenlei dd a{
+                cursor: pointer;
+            }
+        </style>
+    </div>
+</div>
+<div class="msgDialog" v-show="showDialog">
+    <div class="layui-layer layui-layer-page" id="layui-layer1" style="z-index: 19891015; width: 520px !important; height: auto; top: 20%; left: 555px;">
+        <div class="layui-layer-title" style="padding-right: 20px">
+            <div style="font-size: 20px">拒绝理由
+                <div class="cancel">×</div>
+            </div>
+        </div>
+        <div id="" class="layui-layer-content" style="height: 180px;">
+            <style type="text/css">
+                .msgDialog{
+                    display: block;
+                }
+                .table-pop td {
+                    line-height: 28px;
+                    padding: 0 0 10px;
+                    vertical-align: top;
+                    width: 51px;
+                }
+                .layui-layer{
+                    width: 300px;
+                }
+                .acts {
+                    width: 410px;
+                    float: left;
+                }
+
+                .font12 {
+                    width: 78px !important;
+                    display: table;
+                }
+                .cancel{
+                    float: right;
+                    color: #0f0f0f;
+                }
+
+            </style>
+            <div class="pop-message sxfixed-info" id="post_message" style="*width:470px">
+                <table class="pop table-pop">
+                    <tbody>
+                    <tr>
+                        <td class="textR font12">内容：</td>
+                        <td>
+                            <textarea id="message_content" v-model="refuseContent" class="sx-textarea" style="width: 400px;height: 60px;"></textarea>
+                            <div class="acts" style="height: 30px;">
+                                <a class="btn-green-small fr btn_b" href="javascript:;" @click="cancaldialog" style="float: right"><span>取消</span></a>
+                                <a class="btn-green-small fr btn_b" href="javascript:;" @click="doRefuse" style="float: right"><span>确定</span></a>
+                            </div>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+        <span class="layui-layer-setwin" @click="cancaldialog"><a class="layui-layer-ico layui-layer-close layui-layer-close1" href="javascript:;"></a></span><span class="layui-layer-resize"></span>
+    </div>
+    <div class="layui-layer-move"></div>
+</div>
+
+    <div class="msgDialog" v-show="allowDialog">
+        <div class="layui-layer layui-layer-page" style="z-index: 19891015; width: 520px !important; height: auto; top: 20%; left: 555px;">
+            <!--<div class="layui-layer-title" style="padding-right: 20px">-->
+                <!--<div style="font-size: 20px">拒绝理由-->
+                    <!--<div class="cancel">×</div>-->
+                <!--</div>-->
+            <!--</div>-->
+            <div  class="layui-layer-content" style="height: 110px;">
+                <style type="text/css">
+                    .msgDialog{
+                        display: block;
+                    }
+                    .table-pop td {
+                        line-height: 28px;
+                        padding: 0 0 10px;
+                        vertical-align: top;
+                        width: 51px;
+                    }
+                    .layui-layer{
+                        width: 300px;
+                    }
+                    .acts {
+                        width: 410px;
+                        float: left;
+                    }
+
+                    .font12 {
+                        width: 78px !important;
+                        display: table;
+                    }
+                    .cancel{
+                        float: right;
+                        color: #0f0f0f;
+                    }
+                    .textR>div{
+                        width: 488px;
+                        text-align: center;
+                    }
+
+                </style>
+                <div class="pop-message sxfixed-info" style="*width:470px">
+                    <table class="pop table-pop">
+                        <tbody>
+                        <tr>
+                            <td class="textR font12"><div>确认通过？</div></td>
+                        </tr>
+                        <tr style="margin-top: 30px">
+                            <td>
+                                <div class="acts" style="height: 30px; margin-top: 30px;width: 324px;">
+                                    <a class="btn-green-small fr btn_b" href="javascript:;" @click="cancalallowdialog" style="float: right"><span>取消</span></a>
+                                    <a class="btn-green-small fr btn_b" href="javascript:;" @click="doAllow" style="float: right"><span>确定</span></a>
+                                </div>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+            <span class="layui-layer-setwin" @click="cancaldialog"><a class="layui-layer-ico layui-layer-close layui-layer-close1" href="javascript:;"></a></span><span class="layui-layer-resize"></span>
+        </div>
+        <div class="layui-layer-move"></div>
+    </div>
+    <!--footer start-->
+<style>
+    .post-service{
+        position: absolute;
+        bottom: 0;
+    }
+    html{
+        background-color: #f2f2f2;
+    }
+</style>
+    <div class="post-service yensen">
+
+        <div class="copyright-box">
+            Copyright 2017 seition All Rights Reserved  |  蜀ICP 备 16004612号        </div>
+    </div>
+</div>
+<i id="webname" title="myMsg"></i>
+<script src="../../js/vue.min.js"></script>
+<script src="../../js/vuex.js"></script>
+<script src="../../js/vue-cookies.js"></script>
+<script src="../../js/vue-validator.js"></script>
+<script src="../../js/common.js"></script>
+<script src="../../js/axios.js" ></script>
+<script src="../../js/dynamic2.js"></script>
+<script src="../../js/user.js"></script>
+<script src="../../js/doMsg.js"></script>
+</body></html>

@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+    <title>评论问题</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="Access-Control-Allow-Origin" content="*">
+
+
+    <style>
+        @font-face {font-family: 'iconfontNEW';src: url('../group/group.html?_ijt=q3nqce0pepbjuv1rh2c72ebheaaddons/theme/stv1/_static/icon/iconfontNEW.woff?v={$site.sys_version}');}
+        .iconfontNEW{font-family:"iconfontNEW";}
+    </style>
+</head>
+<body>
+
+
+
+<div  id="content">
+
+<div class="top">
+    <div class="header_new2">
+        <div class="top1">
+            <div class="top1img">
+                <a href="../group/group.html?_ijt=q3nqce0pepbjuv1rh2c72ebhea" title="Eduline在线教育系统" style="display: block;float: left;"><img src="../../images/logo.png" width="150" data-bd-imgshare-binded="1"></a>
+            </div>
+
+            <div class="nav">
+                <ul>
+                    <li >
+                        <a href="../group/group.html" target="_self">社区</a>
+                    </li>                                              <li >
+                    <a href="./questionsList.html" target="_self">问答</a>
+                </li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="top3">
+            <!--消息提示-->
+            <div class="nav1">
+                <ul class="page_header_adiv">
+                    <li class="header_top_nav" v-if="notLogin === true">
+                        <a href="#">{{user}}</a>
+                        <i class="icon-nav-arrow"></i>
+                    </li>
+                    <li class="fr" v-if="notLogin ===false" style="margin-top: 10px;font-size: 14px;color:#fff;"><a href="../../login.html">登录 </a> | <a href="../../register.html" style="cursor: pointer;"> 注册</a>
+                    </li>
+                    <dl class="login-after-position" v-show="notLogin === true">
+
+                        <dd class="login-after-bdbt"><a
+                                href="../personalCenter/changeMyInfo.html">我的设置</a>
+                        </dd>
+                        <dd class="login-after-bdbt"><a
+                                href="../personalCenter/myMsg.html">我的消息</a>
+                        </dd>
+                        <dd class="login-after-bdbt"><a href="javascript:;" onclick="logout()">退出</a></dd>
+                    </dl>
+
+                </ul>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+<style type="text/css">
+    .content{background: #fff;}
+</style>
+<div class="content">
+    <div class="wrap">
+        <!--左边-->
+        <div class="class_left">
+            <div class="question-box">
+                <h2>{{questions.title}}</h2>
+                <dl>
+                    <dt><a href="javascript:;"><img src="../../images/original_100_100.jpg" class="lazyloading" data-bd-imgshare-binded="1">用户2</a> 发表于：2018-07-06 14:48</dt>
+                </dl>
+                <div class="question-page">
+                    <p style=" color: #858585; white-space: normal; font-size: 14px; font-family: 微软雅黑, 宋体;">
+                        {{questions.content}}
+                    </p>
+                </div>
+                <!--<form>-->
+                <div class="item border"><textarea name="content" cols="" rows="" placeholder="我来帮TA回答" v-model="content"></textarea></div>
+                <div class="item t-right"><button id="myanser" class="btn-mc btn-mini btn-mc-green  js-ipt-submit" @click="addanswer()">提交回答</button></div>
+                <!--</form>-->
+            </div>
+
+
+            <!---回复问题--->
+            <style>
+                .qa-comment-wrap{
+                    padding-bottom: 10px;
+                }
+            </style>
+            <div class="qa-comment clearfix ">
+                <!--单个主题回复-->
+                <div class="qa-comment-wrap" v-if="answers.length" v-for="item in answers">
+                    <div class="qa-comment-author">
+                        <a title="用户2" event-node="face_card" uid="27" show="no" target="_blank" href="javascript:;">
+                            <img width="40" style="width: 40px" height="40" src="../../images/original_100_100.jpg">
+                            <span class="qa-comment-nick">{{item.user.nick_name}}</span>
+                        </a>
+                    </div>
+                    <div class="qa-comment-inner">
+                        <p class="qa-comment-c imgPreview">{{item.content}}</p>
+                        <div class="qa-comment-addon"> <span class="qa-comment-time">{{item.add_time}}</span>
+                            <div class="qa-comment-addon-r"> <span class="qa-total-reply">
+                      <i class="qa-icon"></i>
+                      <span class="js-qa-tr-num" id="ptr21">
+                        <a id="nbcomm21">{{item.reply_nums}}</a>条评论
+                      </span>
+                        <span @click="showedComment($index,item.id)">{{item.showComment}}<b><i></i></b></span></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!--回复问题下面的单独的-->
+                    <style>
+                        .qa-replies{
+                            width: 80%;
+                            margin-left: 10%;
+                        }
+                        .answer-topic textarea{
+                            width: 100%;
+                            box-sizing: border-box;
+                            margin: 0 0 5px 0;
+                        }
+                    </style>
+                    <div class="qa-replies" v-if="item.showreply === true">
+                        <div class="qa-reply-c" id="comm21" >
+                            <div class="qa-reply-item" v-if="replies.length" v-for="(i,index) in replies" >
+                                <a title="da_ge_da" target="_blank" href="javascript:;" class="qa-reply-item-author"><img width="40" height="40" src="../../images/middle.jpg"></a>
+                                <div class="qa-reply-item-inner">
+                                    <p>
+                                        <a class="qa-reply-nick" target="_blank"
+                                           href="javascript:;"
+                                           id="uname1426">{{replies[i]['user']['nick_name']}}</a> 回复 :<a class="qa-reply-nick" target="_blank"
+                                                                                                         href="javascript:;">{{replies[i].replyed_user.nick_name}}</a>
+                                    </p>
+                                    <p class="q-reply-item-c" id="description1426"> {{replies[i]["content"]}} </p>
+                                    <div class="qa-reply-item-foot clearfix">
+                                        <span class="reply-item-index r">{{replies[i]["add_time"]}}</span>
+                                        <span class="qa-reply-item-reply js-reply-item-reply" @click="chooseReply(item.user.nick_name,item.id)">
+                        <i class="fa fa-twitch"></i>回复
+                    </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="border answer-topic"><textarea name="content" cols="" v-model="replyContent" rows=""
+                                                                       :placeholder="replyer"></textarea></div>
+                            <div class="item t-right">
+                                <button class="btn-mc btn-mini btn-mc-green  js-ipt-submit"
+                                        @click="addreply(item.id,answerId,item.reply_nums,$index)">提交回复
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--右边-->
+        </div>
+    </div>
+
+    <!--footer-->
+    <!--footer start-->
+    <div class="post-service yensen">
+
+        <div class="copyright-box">
+            Copyright 2017 seition All Rights Reserved  |  蜀ICP 备 16004612号        </div>
+    </div>
+    <!--footer end-->
+
+</div></div>
+<i id="webname" title="getanswer"></i>
+<script src="../../js/vue.min.js"></script>
+<script src="../../js/vuex.js"></script>
+<script src="../../js/vue-cookies.js"></script>
+<script src="../../js/common.js"></script>
+<script src="../../js/axios.js"></script>
+<script src="../../js/dynamic2.js"></script>
+<script src="../../js/getanswers.js"></script>
+<script src="../../js/user.js"></script>
+
+</body></html>

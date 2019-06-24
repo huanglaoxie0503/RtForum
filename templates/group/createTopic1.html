@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <title>发帖</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0">
+    <meta property="qc:admins" content="1403267155765154541656375">
+    <meta property="wb:webmaster" content="fdcd9430a88b1552">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="Access-Control-Allow-Origin" content="*">
+    <script type="text/javascript" charset="utf-8" src="createtopics/ueditor.config.js"></script>
+    <script type="text/javascript" charset="utf-8" src="createtopics/ueditor.all.min.js"> </script>
+   <script type="text/javascript" charset="utf-8" src="createtopics/lang/zh-cn/zh-cn.js"></script>
+</head>
+<body>
+<div  id="content">
+
+<div class="top">
+    <div class="header_new2">
+        <div class="top1">
+            <div class="top1img">
+                <a href="/html/group/group.html" style="display: block;float: left;"><img src="createtopics/img/logo.png" width="150" data-bd-imgshare-binded="1"></a>
+            </div>
+
+            <div class="nav">
+                <ul>
+                    <li><a href="group.html" target="_self">社区</a>
+                    </li>
+                    <li>
+                        <a href="../question/questionsList.html" target="_self">问答</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="top3">
+            <!--消息提示-->
+            <ul class="news-msg" style="display:none;">
+
+            <a class="shanchu-ico" href="javascript:;" >×</a>
+
+                        </ul>
+
+            <div class="nav1">
+
+                <ul class="page_header_adiv">
+                    <li class="header_top_nav" v-if="notLogin === true">
+                        <a href="#">{{user}}</a>
+                        <i class="icon-nav-arrow"></i>
+                    </li>
+                    <li class="fr" v-if="notLogin ===false" style="margin-top: 10px;font-size: 14px;color:#fff;"><a href="../../login.html">登录 </a> | <a href="../../register.html" style="cursor: pointer;"> 注册</a>
+                    </li>
+                    <dl class="login-after-position" v-show="notLogin === true">
+
+                        <dd class="login-after-bdbt"><a
+                                href="../personalCenter/changeMyInfo.html">我的设置</a>
+                        </dd>
+                        <dd class="login-after-bdbt"><a
+                                href="../personalCenter/myMsg.html">我的消息</a>
+                        </dd>
+                        <dd class="login-after-bdbt"><a href="javascript:;" onclick="logout()">退出</a></dd>
+                    </dl>
+
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<link rel="stylesheet" href="createtopics/css/common_new.css">
+<link href="createtopics/css/base-min.css" rel="stylesheet">
+
+<link href="createtopics/css/editor-pkg-sprite-min.css" rel="stylesheet">
+
+<link href="createtopics/css/editor-pkg-min-datauri.css" rel="stylesheet">
+
+<link href="createtopics/css/group.css" rel="stylesheet" type="text/css">
+<link rel="stylesheet" href="createtopics/css/index.css"/>
+<style>
+    .sk_main{background-color: transparent;}
+    .internalBox{width: 1200px;margin: 0 auto;background-color: #fff;zoom: 1;}
+    .internalBox:after{clear: both;display: block;height: 0;visibility: visible;content: "";}
+    .breadInter{width: 1200px;margin: 0 auto;}
+    .sk_main .sk_r{width: 315px;}
+</style>
+<div class="content_holder">
+<div class="breadcrumb">
+    <div class="breadInter">
+        <a href="http://localhost:63342/untitled1/product0606/content/community/group.htmlindex.php?app=group&amp;mod=Index&amp;act=index" style="padding-left:0;">小组</a>&gt;<a href="http://localhost:63342/untitled1/product0606/content/community/group.htmlindex.php?app=group&amp;mod=Index&amp;act=view&amp;gid=174">Python交流角</a>&gt;
+        <a>《这是发布的第一条数据！！》</a>
+    </div>
+
+    <div class="title">
+        <h2 class="h2">帖子标题：</h2>
+        <textarea class="thisTitle" v-model="title" name="title" id="" cols="72" rows="1"></textarea>
+    </div>
+</div>
+
+<style>
+    .h2{
+        display: inline-block;
+    }
+    .breadcrumb,.continar{
+        margin: 0 auto;
+    }
+</style>
+
+<div class="breadInter" style="margin: 0 auto" >
+
+    <h2 class="h2 h3">帖子正文：</h2>
+    <style>
+        .user-submit{
+            margin-top: 10px;
+            height: 34px;
+            width: 80px;
+            padding: 0;
+            display: block;
+            border: none;
+            background: #02C1D0;
+            color: #FFF;
+            font-family: "microsoft yahei";
+            font-size: 14px;
+            line-height: 26px;
+        }
+        .h3{
+            margin-bottom: 15px;
+            padding-left: 5px;
+        }
+    </style>
+
+
+        <!-- 加载编辑器的容器 -->
+    <!--<form action="http://39.104.13.197:8000/groups/1/posts/" method="post">-->
+        <script id="container" name="content" type="text/plain">
+
+    </script>
+        <input class="user-submit" id="btn" value="发帖" @click="addPost()" type="submit"/>
+    <!--</form>-->
+        <!-- 配置文件 -->
+        <script type="text/javascript" src="createtopics/ueditor.config.js"></script>
+        <!-- 编辑器源码文件 -->
+        <script type="text/javascript" src="createtopics/ueditor.all.js"></script>
+        <!-- 实例化编辑器 -->
+
+</div>
+</div>
+</div>
+<i id="webname" title="createTopic1"></i>
+<script src="../../js/vue.min.js"></script>
+<script src="../../js/vuex.js"></script>
+<script src="../../js/vue-cookies.js"></script>
+<script src="../../js/common.js"></script>
+<script src="../../js/dynamic2.js"></script>
+<script src="../../js/axios.js"></script>
+<script src="createtopics/third-party/jquery-1.10.2.js"></script>
+<script src="../../js/creatTopic.js"></script>
+
+</body></html>

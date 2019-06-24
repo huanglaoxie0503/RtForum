@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<!-- saved from url=(0040)../group/group.html?_ijt=q3nqce0pepbjuv1rh2c72ebheaquestion.html -->
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>问题列表</title>
+    <meta content="wenda" name="keywords">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="Access-Control-Allow-Origin" content="*">
+
+	<style>
+		@font-face {font-family: 'iconfontNEW';src: url('../group/group.html?_ijt=q3nqce0pepbjuv1rh2c72ebheaaddons/theme/stv1/_static/icon/iconfontNEW.woff?v={$site.sys_version}');}
+		.iconfontNEW{font-family:"iconfontNEW";}
+	</style>
+
+</head>
+<body>
+<div id="questions">
+<div class="top">
+    <div class="header_new2">
+        <div class="top1">
+            <div class="top1img">
+                <a href="../group/group.html" style="display: block;float: left;"><img src="../../images/logo.png" width="150" data-bd-imgshare-binded="1"></a>
+            </div>
+
+            <div class="nav">
+                <ul>
+                    <li>
+                        <a href="../group/group.html" target="_self">社区</a></li>
+                    <li>
+                        <a href="#" target="_self">问答</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="top3">
+            <!--消息提示-->
+            <ul class="news-msg" style="display:block;">
+                        </ul>
+            <div class="nav1">
+                <ul class="page_header_adiv">
+                    <li class="header_top_nav" v-if="notLogin ===true">
+                        <a href="#">{{user}}</a>
+                        <i class="icon-nav-arrow"></i>
+                    </li>
+                    <li class="fr" v-if="notLogin ===false" style="margin-top: 10px;font-size: 14px;color:#fff;"><a href="../../login.html">登录 </a> | <a href="../../register.html" style="cursor: pointer;"> 注册</a>
+                    </li>
+                    <dl class="login-after-position" v-show="notLogin === true">
+
+                        <dd class="login-after-bdbt"><a
+                                href="../personalCenter/changeMyInfo.html">我的设置</a>
+                        </dd>
+                        <dd class="login-after-bdbt"><a
+                                href="../personalCenter/myMsg.html">我的消息</a>
+                        </dd>
+                        <dd class="login-after-bdbt"><a href="javascript:;" onclick="logout()">退出</a></dd>
+                    </dl>
+
+                </ul>
+            </div>
+
+			        </div>
+    </div>
+</div>
+
+
+<!--content start-->
+<div class="content">
+	<div class="wrap">
+        <div class="class_left">
+            <div class="search-box">
+                <dl class="card-body">
+                    <dd class="clearfix">
+                        <ul class="select-list pb20" style="width: 830px">
+                            <li class="selected">
+                                <a href="">全部</a>
+                            </li>
+                            <li>
+                                    <a href="">技术回答</a>
+                                </li><li>
+                                    <a href="">技术分享</a></li>
+
+                                                    </ul><a class="fb_btn" href="./addquestion.html" style=" float: right;
+                height: 30px;
+                line-height: 30px;width: 100px;margin-right: 5px">我要提问</a>
+                        <div class="subs" style="display: none">
+                            <ul class="sub-course" id="pre">
+                                <li class="selected"><a href="javascript:;" class="screen" id="cate_no" data-type="cateId" data-value="">不限</a></li>
+                            </ul>
+
+                        </div>
+                    </dd>
+                </dl>
+            </div>
+
+            <div class="search-wrap">
+                <ul class="search-ul">
+                    <li class="active" id="mostnew"><a href="">最新</a></li>
+                    <li><a href="">热门</a></li>
+                </ul>
+            </div>
+            <ul class="fqalist">
+                                    <!--置顶问答-->
+                    <li v-for="i in res">
+                            <a target="_blank" class="name" href="javascript:;"><img class="lazyload" data-original="../group/group.html" src="../../images/original_50_50.jpg" data-bd-imgshare-binded="1" style="display: block;"><span>{{ i["user"]["nick_name"] }}</span></a>
+                            <h3>
+                                <a href="getanswer.html?questionId={{i.id}}">
+                                <span v-if="res.length">{{ i['content'] }}</span>
+                                    <ul>
+                                                                            </ul>
+                                </a>
+                            </h3>
+                            <div class="ctime">
+                                <p class="time_p">发表于：{{ i["add_time"]}}</p><p class="num"><i class="icon icon-pinglun2"></i><span>{{ i["answer_nums"] }}</span></p>
+                            </div>
+
+                        </li>             </ul>
+
+        </div>
+        <style>
+            .class_left{
+                width: 100%;
+            }
+            .fb_btn{
+                float: right;
+                height: 30px;
+                line-height: 30px;
+            }
+            html{
+                height: 100%;
+            }
+            body{
+                height: 100%;
+            }
+            #questions{
+                height: 100%;
+            }
+            .content{
+                height: 100%;
+            }
+        </style>
+    </div>
+</div>
+
+
+    <!--footer start-->
+    <div class="post-service yensen">
+        <div class="copyright-box">
+            Copyright 2017 seition All Rights Reserved  |  蜀ICP 备 16004612号        </div>
+    </div>
+    <!--footer end-->
+</div>
+
+<i id="webname" title="questionsList"></i>
+<script src="../../js/vue.min.js"></script>
+<script src="../../js/vuex.js"></script>
+<script src="../../js/vue-cookies.js"></script>
+<script src="../../js/common.js"></script>
+<script src="../../js/axios.js"></script>
+<script src="../../js/dynamic2.js"></script>
+<script src="../../js/questions.js"></script>
+<script src="../../js/user.js"></script>
+</body></html>

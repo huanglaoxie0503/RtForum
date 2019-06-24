@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<!-- saved from url=(0039)http://localhost:63342/untitled1/product0606/content/community/group.htmlmy/group.html -->
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+    <title>我的问答
+    </title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0">
+    <meta property="qc:admins" content="1403267155765154541656375">
+    <meta property="wb:webmaster" content="fdcd9430a88b1552">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="Access-Control-Allow-Origin" content="*">
+    <!-- 站点css -->
+    <script type="text/javascript" src="../js/jquery-1.7.1.min.js"></script>
+    <script src="../js/axios.js"></script>
+    <script src="../js/vue.js"></script>
+
+<body>
+
+<div class="win hide"></div>
+
+<div class="top">
+    <div class="header_new2">
+        <div class="top1">
+            <div class="top1img">
+                <a href="/html/group/group.html"
+                   title="在线教育系统" style="display: block;float: left;"><img src="../images/logo.png" width="150" data-bd-imgshare-binded="1"></a>
+            </div>
+            <div class="nav">
+                <ul>
+                    <li><a href="../group/group.html"
+                           target="_self">社区</a></li>
+                    <li>
+                        <a href="../question/questionsList.html"
+                           target="_self">问答</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="top3">
+            <!--消息提示-->
+            <ul class="news-msg" style="display:none;">
+
+                <a class="shanchu-ico" href="javascript:;" onclick="closeMsg(this)">×</a>
+
+
+            </ul>
+
+
+            <div class="nav1">
+
+                <ul class="page_header_adiv">
+                    <li class="header_top_nav">
+                        <a href="../personalCenter/myAttentions.html">顺子哥</a>
+                        <i class="icon-nav-arrow"></i>
+                    </li>
+                    <dl class="login-after-position">
+                        <dd class="login-after-bdbt"><a
+                                href="../personalCenter/myAttentions.html">个人中心</a>
+                        </dd>
+                        <dd class="login-after-bdbt"><a
+                                href="../personalCenter/changeMyInfo.html">我的设置</a>
+                        </dd>
+                        <dd class="login-after-bdbt"><a
+                                href="../personalCenter/myMsg.html">我的消息</a>
+                        </dd>
+                        <dd class="login-after-bdbt"><a href="javascript:;" onclick="logout()">退出</a></dd>
+                    </dl>
+
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<!--header end  background:url(centerbg.jpg) center center no-repeat;-->
+<style>
+    /*个人主页、首页*/
+    .centerbox {
+        height: 200px;
+    }
+
+    .center_right_tit div a.on {
+        border-color: #00BED4;
+    !important;
+        color: #00BED4;
+    !important;
+        background-color: #fff;
+    !important;
+    }
+
+    .center_right_tit div a {
+        height: 54px;
+    !important;
+        padding: 0 25px;
+    !important;
+        font-size: 16px;
+    !important;
+        line-height: 54px;
+    !important;
+        display: block;
+    !important;
+        float: left;
+    !important;
+    }
+
+    .center_right_tit div a:hover, .center_right_tit li a:hover {
+        border-color: #00BED4;
+    !important;
+        color: #00BED4;
+    !important;
+        background-color: #fff;
+    !important;
+    }
+
+    .center_left li.on a {
+        background-color: #00BED4 !important;
+    !important;
+        color: white !important;
+    !important;
+    }
+
+    .center-info h3 span img {
+        border: none;
+    }
+
+    .sr-bdimgshare-black .bdimgshare-bg, .bdimgshare-content {
+        display: none;
+    }
+
+    .center_left .top li {
+        border-top: none;
+        line-height: normal;
+    }
+
+    .center-info .name {
+        font-size: 20px;
+        line-height: 34px;
+    }
+
+    .content {
+        padding: 0;
+        background-color: #f0f0f2;
+    }
+
+    .center-info {
+        text-align: left;
+        float: left;
+        margin-top: 38px;
+    }
+
+    .center-info img {
+        float: left;
+        margin-right: 20px;
+        width: 120px;
+        height: 120px;
+    }
+
+    .center-info-txt {
+        float: left;
+    }
+
+    .center-info h3 {
+        margin-top: 30px;
+    }
+
+    .center_right_tit div a {
+        height: 50px;
+        line-height: 50px;
+        float: right;
+    }
+
+    .user-con-title a {
+        width: 65px;
+    }
+
+    .look-home .on a {
+        color: #00BED4;
+    }
+
+    .bdshare-button-style1-24 a, .bdshare-button-style1-24 .bds_more {
+        margin: 6px;
+    }
+
+    .user-imglist .act {
+        float: left;
+        width: 100%;
+    }
+
+    .bdshare-button-style1-24 a, .bdshare-button-style1-24 .bds_more {
+        margin: 6px;
+    }
+
+    /*我的回答字体*/
+    .detailmeg {
+        font-size: 14px;
+        float: right;
+        width: 766px;
+    }
+</style>
+<!--<form id="user_img_forms" action="http://localhost:63342/untitled1/product0606/content/community/group.htmlindex.php?app=classroom&amp;mod=User&amp;act=doAddUserAttach" method="POST" enctype="multipart/form-data">-->
+<div class="centerbox"
+     style="background:url(http://localhost:63342/untitled1/product0606/content/community/group.htmldata/upload/2018/0706/14/5b3f10576810b.jpg) center center no-repeat;background-size: cover;">
+
+    <div class="wrap">
+
+        <div class="center-info">
+            <img src="../images/original_200_200.jpg" data-bd-imgshare-binded="1">
+            <div class="userName">用户1</div>
+
+        </div>
+        <div class="pivate">
+            <button class="setAttention">关注</button>
+            <button class="sendMsg">私信</button>
+        </div>
+        <div class="_right-box-all">
+            <div class="act">
+                <div class="fr zhuang-left">
+                    <a class="fx" href="javascript:;">
+                        <i class="icon-fx"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--</form>-->
+<style>
+    .wrap {
+        margin: 0 auto;
+    }
+
+    .center_left dl {
+        padding-bottom: 0px;
+    }
+</style>
+<div class="content cbg">
+    <div class="study-navigation">
+        <div class="wrap">
+            <ul class="look-home">
+                <li class="on"><a>问答</a></li>
+                <li><a>关注</a></li>
+                <li><a>粉丝</a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="wrap" id="wrap">
+        <!--用户问答-->
+        <ul class="myGroup">
+            <li class="content cbg">
+                <div class="wrap">
+                    <!--中 -->
+                    <div class="center_right">
+                        <div class="center_right_tit">
+                            <h5>问答</h5>
+                        </div>
+                        <div class="qa-replies" style="">
+                            <div class="qa-reply-c" id="comm21">
+
+                                <div class="qa-reply-item"><a title="da_ge_da" target="_blank"
+                                                              href="http://localhost:63342/untitled1/product0606/content/community/group.htmluser/1426.html"
+                                                              class="qa-reply-item-author"><img width="40" height="40"
+                                                                                                src="../images/21.gif"/></a>
+                                    <div class="qa-reply-item-inner">
+
+                                        <p class="q-reply-item-c" id="description1426"> test </p>
+                                        <div class="qa-reply-item-foot clearfix">
+                                            <span class="reply-item-index r">#2018-06-06 22:30</span>
+                                            <span class="qa-reply-item-reply js-reply-item-reply"
+                                                  onclick="sonCommBang(this,1426,27,21,22)">
+                </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <!--追加的子回复-->
+                        <!--追加的子回复-->
+                    </div>
+                </div>
+            </li>
+            <!--用户关注-->
+            <li style="display: none" class="content cbg">
+                <div class="wrap">
+                    <!--中 -->
+                    <div class="center_right">
+                        <div class="center_right_tit">
+                            <h5>关注</h5>
+                        </div>
+
+                        <ul class="user-imglist">
+                            <div class="card-main">
+                                <ul class="teacher_list">
+                                    <li>
+                                        <div class="teacher_picture">
+                                            <a href="http://localhost:63342/untitled1/product0606/content/community/group.html?_ijt=q3nqce0pepbjuv1rh2c72ebheateacher/1.html"><img class="lazyload" data-original="http://localhost:63342/untitled1/product0606/content/community/group.html?_ijt=q3nqce0pepbjuv1rh2c72ebheadata/upload/2018/0808/15/5b6a97885fded_120_120_120_120.png" alt="测试机构1讲师1" src="../images/timg.jpg" data-bd-imgshare-binded="1" style="display: inline;"></a>
+                                        </div>
+                                        <a href="http://localhost:63342/untitled1/product0606/content/community/group.html?_ijt=q3nqce0pepbjuv1rh2c72ebheateacher/1.html"><p class="teacher_name">测试机构1讲师1</p></a>
+                                        <a href="http://localhost:63342/untitled1/product0606/content/community/group.html?_ijt=q3nqce0pepbjuv1rh2c72ebheateacher.html"><p class="shcool"></p></a>
+                                        <p class="introduce">她以不对称、曲面状的前卫服饰闻名全球，受到许多时尚界人士的喜爱，从...</p>
+                                    </li></ul></div>
+                        </ul>
+
+                        <!--追加的子回复-->
+                        <!--追加的子回复-->
+                    </div>
+                </div>
+            </li>
+            <!--用户粉丝-->
+            <li style="display: none" class="content cbg">
+                <div class="wrap">
+                    <!--中 -->
+                    <div class="center_right">
+                        <div class="center_right_tit">
+                            <h5>粉丝</h5>
+                        </div>
+
+                        <ul class="user-imglist">
+                            <div class="card-main">
+                                <ul class="teacher_list">
+                                    <li>
+                                        <div class="teacher_picture">
+                                            <a href="#"><img class="lazyload" data-original="http://localhost:63342/untitled1/product0606/content/community/group.html?_ijt=q3nqce0pepbjuv1rh2c72ebheadata/upload/2018/0808/15/5b6a97885fded_120_120_120_120.png" alt="测试机构1讲师1" src="../images/timg.jpg" data-bd-imgshare-binded="1" style="display: inline;"></a>
+                                        </div>
+                                        <a href="http://localhost:63342/untitled1/product0606/content/community/group.html?_ijt=q3nqce0pepbjuv1rh2c72ebheateacher/1.html"><p class="teacher_name">测试机构1讲师1</p></a>
+                                        <a href="http://localhost:63342/untitled1/product0606/content/community/group.html?_ijt=q3nqce0pepbjuv1rh2c72ebheateacher.html"><p class="shcool"></p></a>
+                                        <p class="introduce">她以不对称、曲面状的前卫服饰闻名全球，受到许多时尚界人士的喜爱，从...</p>
+                                    </li>
+                                </ul>
+                            </div>
+                        </ul>
+
+                        <!--追加的子回复-->
+                        <!--追加的子回复-->
+                    </div>
+                </div>
+            </li>
+        </ul>
+
+        <!--左-->
+        <style type="text/css">
+            .bot {
+                width: 290px;
+                background-color: #fff;
+            }
+
+            .main-sidebar-title {
+                padding: 0 20px;
+                margin: 0
+            }
+
+            .center_left li:first-child {
+                border: 0;
+            }
+
+            .center_left li {
+                width: 250px;
+                margin-left: 20px;
+            }
+
+            .center_left {
+                margin-bottom: 30px;
+            }
+        </style>
+
+    </div>
+</div>
+
+<!--学习记录-->
+
+
+</div>
+</div>
+
+<!--footer start-->
+<div class="post-service yensen">
+    <div class="copyright-box">
+        Copyright 2017 seition All Rights Reserved | 蜀ICP 备 16004612号
+    </div>
+</div>
+<script src="../js/jquery.cookie.js"></script>
+<script src="../js/user.js"></script>
+<script src="../../js/dynamic2.js"></script>
+
+
+<!--//私信弹窗-->
+<div class="msgDialog">
+    <div class="layui-layer layui-layer-page" id="layui-layer1" type="page" times="1" showtime="0" contype="string"
+         style="z-index: 19891015; width: auto; height: auto; top: 20%; left: 555px;">
+        <div class="layui-layer-title">
+            <div style="font-size: 20px">发私信
+                <div class="cancel">×</div>
+            </div>
+        </div>
+
+        <div id="" class="layui-layer-content" style="height: 205px;">
+            <style type="text/css">
+                .table-pop td {
+                    line-height: 28px;
+                    padding: 0 0 10px;
+                    vertical-align: top;
+                    width: 51px;
+                }
+
+                .acts {
+                    width: 410px;
+                    float: left;
+                }
+
+                .font12 {
+                    width: 52px !important;
+                    display: table;
+                }
+
+                .face {
+                    background: url(https://demo.51eduline.com/addons/theme/stv1/_static/images/user-sx.png) no-repeat 0 0 !important;
+                }
+            </style>
+            <div class="pop-message sxfixed-info" id="post_message" style="*width:470px">
+                <table class="pop table-pop">
+                    <tbody>
+                    <tr>
+                        <td class="textR font12" style="line-height: normal;">收信人：</td>
+                        <td>
+                            <div class="choose-user left">
+                                <ul rel="userlist" class="user-list">
+                                    <li>
+                                        <!-- <div class="content"> --><a
+                                            href="#" title="用户2">用户2</a>
+                                        <!-- </div> -->
+                                    </li>
+                                </ul>
+                                <input style="display:none" name="avoidSubmitByReturn">
+                                <input type="hidden" rel="uids" id="search_uids" name="search_uids" value="27">
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="textR font12">内容：</td>
+                        <td>
+                            <textarea id="message_content" onblur="this.className=&#39;s-textarea&#39;"
+                                      onfocus="this.className=&#39;sx-textarea&#39;" class="sx-textarea"
+                                      style="width: 400px;height: 60px;"></textarea>
+                            <div class="acts" style="height: 30px;">
+                                <a class="biaoqing position-rt fl" href="javascript:;" event-node="message_insert_face">
+                                    <i class="face"></i>表情</a>
+                                <a class="btn-green-small fr btn_b" onclick="doPostMessage();" id="postbut"
+                                   href="javascript:;" style="float: right"><span>发送</span></a>
+                                <!-- <div id="message_face_div"></div> -->
+                            </div>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+        <span class="layui-layer-setwin"><a class="layui-layer-ico layui-layer-close layui-layer-close1" href="javascript:;"></a></span><span class="layui-layer-resize"></span>
+    </div>
+    <div class="layui-layer-move"></div>
+</div>
+<script src="../js/changeMyInfo.js"></script>
+</body>
+</html>

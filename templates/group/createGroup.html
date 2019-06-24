@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <title>创建小组</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0">
+    <meta property="qc:admins" content="1403267155765154541656375">
+    <meta property="wb:webmaster" content="fdcd9430a88b1552">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="Access-Control-Allow-Origin" content="*">
+
+
+</head>
+<body>
+<div id="content">
+<div class="top">
+    <div class="header_new2">
+        <div class="top1">
+            <div class="top1img">
+                <a href="/html/group/group.html" title="申请小组" style="display: block;float: left;"><img src="../../images/logo.png" width="150" data-bd-imgshare-binded="1"></a>
+            </div>
+
+            <div class="nav">
+                <ul>
+                    <li><a href="group.html" target="_self">社区</a></li>
+                    <li>
+                    <a href="../question/questionsList.html" target="_self">问答</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="top3">
+            <div class="nav1">
+                <ul class="page_header_adiv">
+                    <li class="header_top_nav" v-if="notLogin === true">
+                        <a href="#">{{user}}</a>
+                        <i class="icon-nav-arrow"></i>
+                    </li>
+                    <li class="fr" v-if="notLogin ===false" style="margin-top: 10px;font-size: 14px;color:#fff;"><a href="../../login.html">登录 </a> | <a href="../../register.html" style="cursor: pointer;"> 注册</a>
+                    </li>
+                    <dl class="login-after-position" v-show="notLogin === true">
+
+                        <dd class="login-after-bdbt"><a
+                                href="../personalCenter/changeMyInfo.html">我的设置</a>
+                        </dd>
+                        <dd class="login-after-bdbt"><a
+                                href="../personalCenter/myMsg.html">我的消息</a>
+                        </dd>
+                        <dd class="login-after-bdbt"><a href="javascript:;" onclick="logout()">退出</a></dd>
+                    </dl>
+
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<style type="text/css">
+    .content{background: #fff;height: 100%}
+</style>
+
+<div class="content" >
+    <div class="wrap">
+        <div class="class_left">
+            <div class="content-place">
+                <div class="sk_main">
+                    <div class="newpost">
+                        <a href="./changeGroup.html" class="quealltab onactive">创建小组</a>
+                    </div>
+                    <div class="sk_l2">
+                        <validator name="myForm">
+                        <form action="#" id="myform" novalidate>
+                            <ul class="user-set-sz" style="padding-left:0px;margin-top:30px;width:100%">
+                                <li>
+                                    <label class="label"><em>*</em> 小组名称：</label>
+                                    <input name="name" type="text" id="gruopName" v-model="name" detect-change="off"
+                                           detect-blur='on' initial='off' autocomplete="off" v-validate:groupName="{minlength:2,maxlength:6}" class="user-width" style="border: 1px solid #cce4f4;" placeholder="">
+                                    <span class="marpwd" v-if="$myForm.groupName.minlength">请输入2-6位的小组名</span>
+                                    <span class="marpwd" v-if="$myForm.groupName.maxlength">请输入2-6位的小组名</span>
+                                </li>
+                                <li>
+                                    <label class="label"><em>*</em> 分类：</label>
+                                    <div class="c2" id="pid">
+                                        <select name="category" id="cid0" detect-change="off" v-model="category"
+                                                detect-blur='on' initial='off' v-validate:zip="['required']">
+                                            <option value="">请选择</option>
+                                            <option value="教育同盟">教育同盟</option>
+                                            <option value="同城交易">同城交易</option>
+                                            <option value="同城交易">同城交易</option>
+                                            <option value="同城交易">同城交易</option>
+                                        </select>
+                                        <span class="marpwd" v-if="$myForm.zip.required">请选择小组类型</span>
+                                    </div>
+                                </li>
+                                <li>
+                                    <label class="label"><em>*</em> 封面：</label>
+                                    <dd>
+                                        <div id="width_150 sc_img">
+                                            <div id="divup_9999" type="file" rel="9999" ref="mmm">
+                                                <input type="file" id="avatarInput" name="file" detect-change="off" v-model="front_image"
+                                                       detect-blur='on' initial='off' v-validate:img="['required']" ref="avatarInput" @change="changeImage($event)" accept="image/gif,image/jpeg,image/jpg,image/png"class="file ck">
+                                                <span v-if="$myForm.img.required">请上传图片</span>
+                                            </div>
+                                            <div id="show_cover" class="show_cover_diy"></div>
+                                            <p>*请上传图片</p>
+                                            <input name="cover_ids" id="cover_ids" type="hidden" class="s-txt">
+                                        </div>
+                                    </dd>
+                                </li>
+
+
+
+                                <li>
+                                    <label class="label"><em>*</em> 简介：</label>
+                                    <textarea id="intro" class="user-textarea" name="desc" style="width:520px"
+                                              detect-change="off"
+                                              detect-blur='on' initial='off' v-validate:desc="['required']" v-model="desc"></textarea>
+                                    <span v-if="$myForm.desc.required">请填写简介</span>
+                                </li>
+
+                                <li>
+                                    <label class="label"><em>*</em> 公告：</label>
+                                    <textarea id="announce"detect-change="off"
+                                              detect-blur='on' initial='off' v-validate:notice="['required']" v-model="notice" class="user-textarea" name="notice" style="width:520px"></textarea>
+                                    <span v-if="$myForm.notice.required">请填写公告</span>
+                                </li>
+
+
+
+                                <li>
+                                    <label class="label">&nbsp;</label>
+                                    <input type="hidden" name="dosubmit" value="1">
+                                    <input class="user-submit" type="submit" name="button" value="保存"  @click.prevent="upload">
+                                </li>
+                            </ul>
+                        </form>
+                        </validator>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .post-service{
+        position:fixed;
+        bottom: 0;
+    }
+</style>
+    <!--footer start-->
+    <div class="post-service yensen">
+            <div class="copyright-box">
+            Copyright 2017 seition All Rights Reserved  |  蜀ICP 备 16004612号        </div>
+    </div>
+</div>
+    <!--footer end-->
+<i id="webname" title="createGroup"></i>
+
+<script src="../../js/vue.min.js"></script>
+<script src="../../js/vuex.js"></script>
+<script src="../../js/vue-cookies.js"></script>
+<script src="../../js/common.js"></script>
+<script src="../../js/vue-validator.js"></script>
+<script src="../../js/axios.js"></script>
+<script src="../../js/dynamic2.js"></script>
+<script src="../../js/user.js"></script>
+<script src="../../js/creategroup.js"></script>
+</body>
+</html>

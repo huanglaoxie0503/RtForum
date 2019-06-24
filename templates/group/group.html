@@ -1,0 +1,171 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>group</title>
+    <meta name="viewport" charset="UTF-8" content="user-scalable=no"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0">
+    <meta property="qc:admins" content="1403267155765154541656375" />
+    <meta property="wb:webmaster" content="fdcd9430a88b1552" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="Access-Control-Allow-Origin" content="*">
+    <link href="../../css/font-awesome.min.css" rel="stylesheet">
+
+</head>
+<div  id="content">
+<div class="top">
+    <div class="header_new2">
+        <div class="top1">
+            <div class="top1img">
+                <a href="group.html" title="小组" style="display: block;float: left;"><img src="../../images/logo.png" width="150"/></a>
+            </div>
+
+            <div class="nav">
+                <ul>
+                    <li >
+                        <a href="#" target="_self">社区</a>
+                    </li>
+                    <li >
+                    <a href="../question/questionsList.html" target="_self">问答</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="top3">
+            <div class="nav1">
+                <ul class="page_header_adiv">
+                    <li class="header_top_nav" v-if="notLogin ===true">
+                        <a href="#">{{user}}</a>
+                        <i class="icon-nav-arrow"></i>
+                    </li>
+                    <li class="fr" v-if="notLogin ===false" style="margin-top: 10px;font-size: 14px;color:#fff;"><a href="../../login.html">登录 </a> | <a href="../../register.html" style="cursor: pointer;"> 注册</a>
+                    </li>
+                    <dl class="login-after-position" v-show="notLogin === true">
+
+                        <dd class="login-after-bdbt"><a
+                                href="../personalCenter/changeMyInfo.html">我的设置</a>
+                        </dd>
+                        <dd class="login-after-bdbt"><a
+                                href="../personalCenter/myMsg.html">我的消息</a>
+                        </dd>
+                        <dd class="login-after-bdbt"><a href="javascript:;" onclick="logout()">退出</a></dd>
+                    </dl>
+
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style media="screen">
+  .pop_group .btn-green-small{
+    background-color: #2BB6C4;
+    color: #fff;
+    font-size: 12px;
+    padding: 5px 10px 5px 10px;
+    border-radius: 3px;
+    margin-top: 10px;
+    display: inline-block;
+    cursor: pointer;
+  }
+
+</style>
+<div class="group-box">
+    <div class="group">
+        <div class="gu-pos">
+            <div class="square"><div class="btns-icon"></div>
+                <ul>
+                    <li :class="{cate_li: number === 1}" @click="getGroup('new')"><a href="#">全部</a></li>
+                     <li :class="{cate_li: number === 2}"><a href="#"  @click="getGroup('教育同盟')"> 教育同盟</a></li>
+                    <li :class="{cate_li: number === 3}"><a href="#"  @click="getGroup('同城交易')">同城交易</a></li>
+                    <li :class="{cate_li: number === 4}"><a href="#"  @click="getGroup('程序设计')">程序设计</a></li>
+                    <li :class="{cate_li: number === 5}"><a href="#"  @click="getGroup('生活兴趣')"> 生活兴趣</a></li>
+                </ul>
+            </div>
+            <div class="com-btns"><span>综合排序</span><div class="btns-icon"></div>
+                <div class="group-name">
+                    <button :class="{groupBtn: hotnumber == true}"  @click="groupOrder('new')"><a href="#">最新小组<i></i></a></button>
+                    <button  :class="{groupBtn: hotnumber == false}"  @click="groupOrder('hot')"><a href="#">热门小组<i></i></a></button>
+                </div>
+            </div>
+            <div class="masking"></div>
+            <div class="order">
+                <div class="group-class">
+                    <div class="group-content">
+                        <a href="postsList.html?groupId={{groupMsg[item].id}}" class="thisGroup" v-if="groupMsg.length" v-for="(item,index) in groupMsg">
+
+                            <div class="group-content-img">
+                                <img :src="groupMsg[item].front_image">
+                                <span class="joinGroup" @click.stop.prevent="showJoin(groupMsg[item].id)">加入小组</span>
+                            </div>
+                            <div class="group-content-per">
+                                <h3>{{groupMsg[item].name}}</h3>
+                                <p>{{groupMsg[item].desc}}</p>
+                                <div class="ibor"><i>成员：{{groupMsg[item].member_nums}}</i><i class="ipos">帖子：{{groupMsg[item].post_nums}}</i></div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="page">
+                <div class="pagebox">
+                                    </div>
+            </div>
+        </div>
+
+        <div class="advertisement-box">
+            <div class="shenq_div">
+                <a href="createGroup.html" class="block_a">
+                    <div class="sapan_icon"><i class="fa fa-plus-square fa-2x"></i></div>
+                    <span>申请小组</span></a>
+            </div>
+            <div class="recommend-group">
+                <h4>热门小组</h4>
+                <ul>
+                    <li v-if="hotGroup.length" v-for="(item,index) in hotGroup">
+                        <img :src="groupMsg[item].front_image">
+                        <div class="recommend">
+                            <p>{{hotGroup[item].desc}}</p>
+                            <i>{{hotGroup[item].member_nums}}个成员</i>
+                            <a href="javascript:;"  @click.stop.prevent="showJoin(groupMsg[item].id)">+加入小组</a>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+	        </div>
+    </div>
+
+    <div  class="dialog" :style="{display:showDialog}">
+        <div class="joingroup">
+            <div class="joinTop">加入小组<span class="cancel1" @click="hideJoin">×</span></div>
+            <textarea id="joincomment" v-model="apply_reason" type="text" placeholder="请输入申请内容"></textarea>
+            <div class="button">
+                <button class="join" @click="joinGroup(this.groupId)">申请加入</button><button class="cancel" @click="hideJoin">取消</button>
+            </div>
+        </div>
+    </div>
+</div>
+    <!--footer start-->
+    <div class="post-service yensen">
+        <div class="copyright-box">
+            Copyright 2017 seition All Rights Reserved  |  蜀ICP 备 16004612号        </div>
+    </div>
+</div>
+    <!--footer end-->
+
+<i id="webname" title="group"></i>
+
+<script src="../../js/vue.min.js"></script>
+<script src="../../js/vue-validator.js"></script>
+<script src="../../js/vue-cookies.js"></script>
+<!--<script src="https://unpkg.com/vue@1.0.26/dist/vue.min.js"></script>-->
+<!--<script src="https://cdn.bootcss.com/vue-validator/2.1.3/vue-validator.js"></script>-->
+<script src="../../js/vuex.js"></script>
+<script src="../../js/common.js"></script>
+<script src="../../js/dynamic2.js"></script>
+<script src="../../js/axios.js"></script>
+<script src="../../js/user.js"></script>
+<script src="../../js/group.js"></script>
+</body>
+</html>

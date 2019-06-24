@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<!-- saved from url=(0045)./group.htmlgroup/addgroup.html -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <title>小组信息修改</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0">
+    <meta property="qc:admins" content="1403267155765154541656375">
+    <meta property="wb:webmaster" content="fdcd9430a88b1552">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="Access-Control-Allow-Origin" content="*">
+
+
+
+</head>
+<body>
+
+
+<div class="win hide"></div>
+
+<div class="top">
+    <div class="header_new2">
+        <div class="top1">
+            <div class="top1img">
+                <a href="group.html" style="display: block;float: left;"><img src="../../images/logo.png" width="150"></a>
+            </div>
+
+            <div class="nav">
+                <ul>
+                    <li><a href="./group.html" target="_self">社区</a>
+                    </li>
+                    <li>
+                    <a href="../question/questionsList.html" target="_self">问答</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="top3">
+            <!--消息提示-->
+            <ul class="news-msg" style="display:none;">
+
+            <a class="shanchu-ico" href="javascript:;" onclick="closeMsg(this)">×</a>
+
+                        </ul>
+            <div class="nav1">
+                <ul class="page_header_adiv">
+                    <li class="header_top_nav">
+                            <a href="#">da_ge_da</a>
+                            <i class="icon-nav-arrow"></i>
+                        </li>
+                        <dl class="login-after-position">
+                            <dd class="login-after-bdbt"><a href="../personalCenter/changeMyInfo.html">我的设置</a></dd>
+                            <dd class="login-after-bdbt"><a href="../personalCenter/myMsg.html">我的消息</a></dd>
+                            <dd class="login-after-bdbt"><a href="javascript:;" onclick="logout()">退出</a></dd>
+                        </dl>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<style type="text/css">
+    .content{background: #fff;}
+</style>
+
+<div class="content">
+    <div class="wrap">
+        <div class="class_left">
+            <div class="content-place">
+                <div class="sk_main">
+                    <div class="newpost">
+                        <a href="./createGroup.html" class="quealltab onactive">创建小组</a>
+                    </div>
+                    <div class="sk_l2">
+
+
+                        <form id="myform" method="patch" >
+                            <ul class="user-set-sz" style="padding-left:0px;margin-top:30px;width:100%">
+                                <li>
+                                    <label class="label"><em>*</em> 小组名称：</label>
+                                    <input name="name" id="gruopname" value="" class="user-width" style="border: 1px solid #cce4f4;" type="text" placeholder="">
+                                </li>
+                                <li>
+                                    <label class="label"><em>*</em> 分类：</label>
+                                    <div class="c2" id="pid">
+                                        <select name="category" id="cid0">
+                                            <option value="">请选择</option>
+                                            <option value="80">教育同盟</option>
+                                            <option value="81">同城交易</option>
+                                            <option value="82">程序设计</option>
+                                            <option value="83">生活兴趣</option>
+                                        </select>
+                                    </div>
+                                </li>
+                                <li>
+                                    <label class="label"><em>*</em> 封面：</label>
+                                    <dd>
+                                        <div id="width_150 sc_img">
+                                            <div id="divup_9999" type="file" rel="9999">
+                                                <input type="file" id="fileUp" name="middle_ids" rel="9999"  urlquery="attach_type=feed_image&amp;upload_type=image&amp;thumb=1" class="file ck">
+                                            </div>
+                                            <div id="show_cover" class="show_cover_diy"></div>
+                                            <p>*请上传图片</p>
+                                            <input name="cover_ids" id="cover_ids" type="hidden" class="s-txt">
+                                        </div>
+                                    </dd>
+                                </li>
+
+
+
+                                <li>
+                                    <label class="label"><em>*</em> 简介：</label>
+                                    <textarea id="intro" class="user-textarea" name="desc" style="width:520px"></textarea>
+                                </li>
+
+                                <li>
+                                    <label class="label"><em>*</em> 公告：</label>
+                                    <textarea id="announce" class="user-textarea" name="notice" style="width:520px"></textarea>
+                                </li>
+
+
+
+                                <li>
+                                    <label class="label">&nbsp;</label>
+                                    <input type="hidden" name="dosubmit" value="1">
+                                    <input class="user-submit" type="submit" name="button" value="保存" onclick="return check()">
+                                </li>
+                            </ul>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .post-service{
+        position: fixed;
+        bottom: 0;
+    }
+</style>
+    <!--footer start-->
+    <div class="post-service yensen">
+
+        <div class="copyright-box">
+            Copyright 2017 seition All Rights Reserved  |  蜀ICP 备 16004612号        </div>
+    </div>
+    <!--footer end-->
+
+
+<script src="../js/jquery.cookie.js"></script>
+<script src="../js/jquery.form.js"></script>
+<script src="../js/changeGroup.js"></script>
+<script src="../../js/user.js"></script>
+<!--</script>-->
+</body>
+</html>
