@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from tornado.web import url
 
-from apps.community.handler import CommunityGroupHandler, GroupMemberHandler, GroupDetailHandler, PostHandler
+from apps.community.handler import *
 
 
 urlpatterns = (
@@ -9,5 +9,11 @@ urlpatterns = (
     url("/groups/([0-9]+)/", GroupDetailHandler),
     url("/groups/([0-9]+)/members", GroupMemberHandler),
     url("/groups/([0-9]+)/posts", PostHandler),
+
+    # 帖子详细
+    url("/posts/([0-9]+)/", PostDetailHandler),
+
+    # 评论
+    url("/posts/([0-9]+)/comments/", PostCommentHandler),
 )
 

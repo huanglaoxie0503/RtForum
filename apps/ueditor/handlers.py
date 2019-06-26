@@ -20,6 +20,8 @@ import base64
 import datetime
 import uuid
 
+from RtForum.handler import BaseHandler
+
 # /* 前后端通信相关的配置,注释只允许使用多行方式 */
 
 ueditor_config = {
@@ -166,7 +168,7 @@ class UeditorEnv():
 
 u4Ts = UeditorEnv(with_list_cache=True)
 
-from MxForm.handler import BaseHandler
+
 class UploadHandler(BaseHandler):
     executor = futures.ThreadPoolExecutor(100)
 

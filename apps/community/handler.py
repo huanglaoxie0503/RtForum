@@ -135,7 +135,39 @@ class PostHandler(RedisHandler):
     @authenticated_async
     async def get(self, group_id, *args, **kwargs):
         # 获取小组帖子
-        pass
+        post_list = []
+        Flag = True
+        try:
+            group = await self.application.objects.get(CommunityGroup, id=int(group_id))
+
+            group_member = await self.application.objects.get(CommunityGroupMember, user=self.current_user,
+                                                              community=group, status="agree")
+            post_query = Post.extend()
+            # 根据类别进行过滤
+            c = self.get_argument("c", None)
+            if c == "hot":
+                post_query = post_query.filter(Post.is_hot == Flag)
+            if c == "excellent":
+                post_query = post_query.filter(Post.is_excellent == Flag)
+            posts = await self.application.objects.execute(Post)
+            for post in posts:
+                item_dict = {
+                    "user": {
+                        "id": post.uesr.id,
+                        "nick_name": post.user.nick_name
+                    },
+                    "id": post.id,
+                    "title": post.title,
+                    "content": post.content,
+                    "comment_nums": post.comment_nums
+                }
+                post_list.append(item_dict)
+        except CommunityGroupMember.DoesNotExist as e:
+            self.set_status(403)
+        except CommunityGroup.DoesNotExist as e:
+            self.set_status(404)
+
+        self.finish(json.dumps(post_list))
 
     @authenticated_async
     async def post(self, group_id, *args, **kwargs):
@@ -163,3 +195,54 @@ class PostHandler(RedisHandler):
             self.set_status(403)
 
         self.finish(re_data)
+
+
+class PostDetailHandler(RedisHandler):
+    @authenticated_async
+    async def get(self, post_id, *args, **kwargs):
+        # 获取某一帖子详情
+        re_data = {}
+        post_detail = await self.application.objects.execute(Post.extend().where(Post.id == int(post_id)))
+        re_count = 0
+        for data in post_detail:
+            item_dict = {}
+            item_dict["user"] = model_to_dict(data.user)
+            item_dict["title"] = data.title
+            item_dict["content"] = data.content
+            item_dict["comment_nums"] = data.comment_nums
+            item_dict["add_time"] = data.add_time.strftime("%Y-%m-%d")
+            re_data = item_dict
+
+            re_count += 1
+        if re_count == 0:
+            self.set_status(404)
+
+        self.finish(re_data)
+
+
+class PostCommentHandler(RedisHandler):
+    @authenticated_async
+    async def post(self, post_id, *args, **kwargs):
+        # 新增评论
+        re_data = {}
+        param = self.request.body.decode("utf8")
+        param = json.loads(param)
+        post_comment_form = PostCommentForm.from_json(param)
+        if post_comment_form.validate():
+            try:
+                post = await self.application.objects.get(Post, id=int(post_id))
+                post_comment = await self.application.objects.create(PostComment, user=self.current_user, post=post,
+                                                                     content=post_comment_form.content.data)
+                re_data["id"] = post_comment.id
+                re_data["user"] = {}
+                re_data["user"]["nick_name"] = self.current_user.nick_name
+                re_data["user"]["id"] = self.current_user.id
+            except Post.DoesNotExist as e:
+                self.set_status(404)
+        else:
+            self.set_status(400)
+            for field in post_comment_form.errors:
+                re_data[field] = post_comment_form.errors[field][0]
+
+        self.finish(re_data)
+

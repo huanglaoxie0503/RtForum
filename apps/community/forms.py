@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from wtforms_tornado import Form
 from wtforms import StringField, TextAreaField
-from wtforms.validators import DataRequired, AnyOf
+from wtforms.validators import DataRequired, AnyOf, Length
 
 
 class CommunityGroupForm(Form):
@@ -18,3 +18,7 @@ class GroupApplyForm(Form):
 class PostForm(Form):
     title = StringField("标题", validators=[DataRequired("请输入标题")])
     content = StringField("内容", validators=[DataRequired("请输入内容")])
+
+
+class PostCommentForm(Form):
+    content = StringField("内容", validators=[DataRequired("请输入内容"), Length(min=3, message="内容不能少于3个字符")])

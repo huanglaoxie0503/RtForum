@@ -57,8 +57,27 @@ def add_post(group_id):
     print(json.loads(res.text))
 
 
+def get_post(group_id):
+    # 获取发帖
+    res = requests.get("{}/posts/{}/".format(web_site_url, group_id), headers=headers)
+    print(res.status_code)
+    print(json.loads(res.text))
+
+
+def add_comment(post_id):
+    # 获取发帖
+    data = {
+        "content": "中证网讯（记者 张典阁）26日，Wind数据显示，北向资金全天净流出12.13亿元。其中，沪股通净流出9.61亿元，深股通净流出2.52亿元。本月北向资金累计净流入387.65亿元。"
+    }
+    res = requests.post("{}/posts/{}/comments/".format(web_site_url, post_id), headers=headers, json=data)
+    print(res.status_code)
+    print(json.loads(res.text))
+
+
 if __name__ == '__main__':
     # new_group()
     # apply_grop(1, "Tornado Test")
     # get_group(1)
-    add_post(1)
+    # add_post(1)
+    # get_post(20)
+    add_comment(1)

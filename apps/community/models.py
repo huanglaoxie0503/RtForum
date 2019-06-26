@@ -48,7 +48,16 @@ class Post(BaseModel):
     group = ForeignKeyField(CommunityGroup, verbose_name="小组")
     title = CharField(max_length=200, verbose_name="标题", null=True)
     comment_nums = IntegerField(default=0, verbose_name="评论数")
+    is_excellent = BooleanField(default=0, verbose_name="是否精华")
+    is_hot = BooleanField(default=0, verbose_name="是否热门")
     content = TextField(verbose_name="内容")
+
+    @classmethod
+    def extend(cls):
+        """
+        扩展方法：处理带外键的序列化
+        """
+        return cls.select(cls, User.id, User.nick_name).join(User)
 
 
 class PostComment(BaseModel):
