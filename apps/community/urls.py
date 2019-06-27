@@ -3,7 +3,6 @@ from tornado.web import url
 
 from apps.community.handler import *
 
-
 urlpatterns = (
     url("/groups/", CommunityGroupHandler),
     url("/groups/([0-9]+)/", GroupDetailHandler),
@@ -15,5 +14,7 @@ urlpatterns = (
 
     # 评论
     url("/posts/([0-9]+)/comments/", PostCommentHandler),
+    # 评论回复
+    url("/comments/([0-9]+)/replys/", CommentReplyHandler),
+    url("/comments/([0-9]+)/likes/", CommentLikeHandler),
 )
-

@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from wtforms_tornado import Form
-from wtforms import StringField, TextAreaField
+from wtforms import StringField, TextAreaField, IntegerField
 from wtforms.validators import DataRequired, AnyOf, Length
 
 
@@ -21,4 +21,9 @@ class PostForm(Form):
 
 
 class PostCommentForm(Form):
+    content = StringField("内容", validators=[DataRequired("请输入内容"), Length(min=3, message="内容不能少于3个字符")])
+
+
+class CommentReplyForm(Form):
+    reply_user = IntegerField("回复用户", validators=[DataRequired("请输入回复用户")])
     content = StringField("内容", validators=[DataRequired("请输入内容"), Length(min=3, message="内容不能少于3个字符")])

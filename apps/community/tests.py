@@ -74,10 +74,31 @@ def add_comment(post_id):
     print(json.loads(res.text))
 
 
+def add_reply(comment_id):
+    # 获取发帖
+    data = {
+        "reply_user": 1,
+        "content": "中证网讯（记者 张典阁）26日，Wind数据显示，北向资金全天净流出12.13亿元。其中，沪股通净流出9.61亿元，深股通净流出2.52亿元。本月北向资金累计净流入387.65亿元。"
+    }
+    res = requests.post("{}/comments/{}/replys/".format(web_site_url, comment_id), headers=headers, json=data)
+    print(res.status_code)
+    print(json.loads(res.text))
+
+
+def add_like(comment_id):
+    # 点赞
+    res = requests.post("{}/comments/{}/likes/".format(web_site_url, comment_id), headers=headers, json={})
+    print(res.status_code)
+    print(json.loads(res.text))
+
+
 if __name__ == '__main__':
     # new_group()
     # apply_grop(1, "Tornado Test")
     # get_group(1)
     # add_post(1)
     # get_post(20)
-    add_comment(1)
+    # add_comment(1)
+    # add_reply(1)
+
+    add_like(1)

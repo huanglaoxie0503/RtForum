@@ -70,6 +70,13 @@ class PostComment(BaseModel):
     reply_nums = IntegerField(default=0, verbose_name="回复数")
     like_nums = IntegerField(default=0, verbose_name="点赞数")
 
+    @classmethod
+    def extend(cls):
+        """
+        扩展方法：处理带外键的序列化
+        """
+        return cls.select(cls, User.id, User.nick_name).join(User)
+
 
 class CommentLike(BaseModel):
     # 评论点赞
