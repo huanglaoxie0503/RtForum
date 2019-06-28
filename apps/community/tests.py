@@ -67,7 +67,7 @@ def get_post(group_id):
 def add_comment(post_id):
     # 获取发帖
     data = {
-        "content": "中证网讯（记者 张典阁）26日，Wind数据显示，北向资金全天净流出12.13亿元。其中，沪股通净流出9.61亿元，深股通净流出2.52亿元。本月北向资金累计净流入387.65亿元。"
+        "content": "python datetime模块用 strftime 格式化时间"
     }
     res = requests.post("{}/posts/{}/comments/".format(web_site_url, post_id), headers=headers, json=data)
     print(res.status_code)
@@ -98,7 +98,7 @@ if __name__ == '__main__':
     # get_group(1)
     # add_post(1)
     # get_post(20)
-    # add_comment(1)
+    add_comment(1)
     # add_reply(1)
 
-    add_like(1)
+    # add_like(1)

@@ -11,6 +11,7 @@ from apps.utils.rtform_decorators import authenticated_async
 from apps.utils.util_func import json_serializer
 from apps.community.forms import *
 from apps.community.models import *
+from apps.message.models import MessageModel
 
 
 class GroupDetailHandler(RedisHandler):
@@ -240,6 +241,12 @@ class PostCommentHandler(RedisHandler):
                 re_data["user"] = {}
                 re_data["user"]["nick_name"] = self.current_user.nick_name
                 re_data["user"]["id"] = self.current_user.id
+
+                # 写入消息
+                receiver = await self.application.objects.get(User, id=post.user_id)
+                await self.application.objects.create(MessageModel, sender=self.current_user, receiver=receiver,
+                                                      message_type=1,
+                                                      parent_content=post.title, message=post_comment_form.content.data)
             except Post.DoesNotExist as e:
                 self.set_status(404)
         else:
@@ -321,3 +328,58 @@ class CommentLikeHandler(RedisHandler):
         except PostComment.DoesNotExist as e:
             self.set_status(404)
         self.finish(re_data)
+
+
+class ReplyHandler(RedisHandler):
+    @authenticated_async
+    async def get(self, *args, **kwargs):
+        re_data = []
+        all_groups = await self.application.execute(
+            CommunityGroup.select().where(CommunityGroup.creator_id == self.current_user.id))
+        all_group_ids = [group.id for group in all_groups]
+
+        group_member_query = CommunityGroupMember.extend().where(CommunityGroupMember.community_id.in_(all_group_ids))
+        all_members = await self.application.onjects.execute(group_member_query)
+        for member in all_members:
+            re_data.append({
+                "user": {
+                    "id": member.id,
+                    "nick_name": member.nick_name,
+                    "head_url": "/media/"+member.user.head_url
+                },
+                "group": member.name,
+                "id": member.id,
+                "apply_reason": member.apply_reason,
+                "add_time": member.add_time.strftime("%Y-%m-%d %H:%M:%S"),
+            })
+
+
+class HandleReplyHandler(RedisHandler):
+    @authenticated_async
+    async def patch(self, apply_id, *args, **kwargs):
+        # 处理用户申请
+        re_data = {}
+        param = self.request.body.decode("utf8")
+        param = json.loads(param)
+        form = HandleReplyForm.from_json(param)
+        if form.validate():
+            status = form.status.data
+            handle_msg = form.handle_msg.data
+            try:
+                member = await self.application.objects.get(CommunityGroupMember, id=int(apply_id))
+                member.status = status
+                member.handle_msg = handle_msg
+                member.handle_time = datetime.now()
+
+                await self.application.objects.update(member)
+            except CommunityGroupMember.DoesNotExist as e:
+                self.set_status(400)
+        self.set_status(400)
+        for field in form.errors:
+            re_data[field] = form.errors[field][0]
+
+        self.finish(re_data)
+
+
+
+

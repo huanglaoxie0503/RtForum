@@ -41,6 +41,13 @@ class CommunityGroupMember(BaseModel):
     apply_reason = CharField(max_length=200, verbose_name="申请理由")
     handle_time = DateTimeField(default=datetime.now(), verbose_name="加入时间")
 
+    @classmethod
+    def extend(cls):
+        """
+        扩展方法：处理带外键的序列化
+        """
+        return cls.select(cls, User, CommunityGroup).join(User).switch(cls).join(CommunityGroup)
+
 
 class Post(BaseModel):
     # 帖子
