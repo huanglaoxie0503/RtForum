@@ -6,7 +6,7 @@ from apps.users.models import User
 
 
 class QuestionModel(BaseModel):
-    user = ForeignKeyField(User, verbose_name="用户", related_name="author")
+    user = ForeignKeyField(User, verbose_name="用户", related_name="question_author")
     category = CharField(max_length=200, verbose_name="分类", null=True)
     title = CharField(max_length=200, verbose_name="标题", null=True)
     content = TextField(verbose_name="内容")
@@ -25,10 +25,10 @@ class AnswerModel(BaseModel):
     """
       回答和回复
     """
-    user = ForeignKeyField(User, verbose_name="用户", related_name="author")
+    user = ForeignKeyField(User, verbose_name="用户", related_name="answer_author")
     question = CharField(max_length=200, verbose_name="问题")
     parent_answer = ForeignKeyField("self", null=True, verbose_name="回答", related_name="answer_parent")
-    reply_user = ForeignKeyField(User, verbose_name="用户", related_name="reply_author")
+    reply_user = ForeignKeyField(User, verbose_name="用户", related_name="reply_author_answer")
     content = TextField(verbose_name="内容")
     reply_nums = IntegerField(default=0, verbose_name="回复数")
 

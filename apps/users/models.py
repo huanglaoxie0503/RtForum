@@ -50,4 +50,4 @@ class User(BaseModel):
     head_url = CharField(max_length=200, null=True, verbose_name="头像")
     address = CharField(max_length=200, null=True, verbose_name="地址")
     desc = TextField(null=True, verbose_name="个人简介")
-    # gender = CharField(max_length=200, null=True, choices=GENDERS, verbose_name="性别")
+    gender = CharField(max_length=200, null=True, choices=GENDERS, verbose_name="性别")
