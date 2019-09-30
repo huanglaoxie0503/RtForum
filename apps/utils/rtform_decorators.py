@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 import functools
-
 import jwt
 
 from apps.users.models import User
@@ -9,10 +8,10 @@ from apps.users.models import User
 def authenticated_async(method):
     @functools.wraps(method)
     async def wrapper(self, *args, **kwargs):
-        tsessionid = self.request.headers.get("tsessionid", None)
-        if tsessionid:
+        token = self.request.headers.get("token", None)
+        if token:
             try:
-                send_data = jwt.decode(tsessionid, self.settings['secret_key'], leeway=self.settings["jwt_expire"],
+                send_data = jwt.decode(token, self.settings['secret_key'], leeway=self.settings["jwt_expire"],
                                        options={"verify_exp": True})
                 user_id = send_data["id"]
                 # 从数据库中获取到user并设置给_current_user
